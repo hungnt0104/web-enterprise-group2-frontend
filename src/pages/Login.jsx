@@ -17,11 +17,12 @@ axios.post('/users/login', {
   .then((response) => {
     const data = response.data;
     console.log(data, 'userRegister');
-    if (data.status === 'ok') {
+    if (data.status === 'okee') {
       alert('Login successful');
       window.localStorage.setItem('token', data.data.token);
       window.localStorage.setItem('loggedIn', true);
       window.localStorage.setItem('userId', data.data.userId);
+      window.localStorage.setItem('role', data.data.role);
       window.location.href = './menu';
     }
   })

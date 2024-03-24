@@ -185,13 +185,12 @@ return(
         </div>
         <div className="row">
           <div className="col-md-12">
-            <div className="table-wrap">
+            <div className="table-wrap"  style={{ overflowX: 'auto' }}>
               <table className="table">
                 <thead className="thead-primary">
                   <tr>
                     <th className='category-header'>Name</th>
                     <th className='category-header'>Email</th>
-                    {/* <th className='category-header'>Password</th> */}
                     <th className='category-header'>Role</th>
                     <th className='category-header'>Department</th>
                   </tr>
