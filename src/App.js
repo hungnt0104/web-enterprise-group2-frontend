@@ -10,6 +10,10 @@ import Login from './pages/Login';
 import SignUp from './pages/Signup';
 import ManageAccount from './pages/ManageAccount';
 import CreateEvent from './pages/CreateEvent';
+import ManageEvent from './pages/ManageEvent';
+import GetArticle from './pages/GetArticle';
+import Profile from './pages/Profile';
+import GetOneArticle from './pages/GetOneArticle';
 // import UserDetails from './components/userDetails';
 // import Product from './components/Product';
 // import Cart from './components/Cart';
@@ -18,20 +22,29 @@ import CreateEvent from './pages/CreateEvent';
 // import Index from './components/Index'
 
 // axios.defaults.baseURL = 'https://backend-test-ad5x.onrender.com/admin';
-axios.defaults.baseURL = 'http://localhost:5000/admin'
+// axios.defaults.baseURL = 'http://localhost:5000/admin'
 
 function App() {
-  // const isLoggedIn = window.localStorage.getItem("loggedIn")
+  const isLoggedIn = window.localStorage.getItem("loggedIn")
   const role = window.localStorage.getItem("role")
   return (
     <Router>
       <Routes>
-        {/* <Route
+        <Route
             path="/menu"
-            element={isLoggedIn == "true" ? <UserDetails /> : <Login />}
-          /> */}
+            element={isLoggedIn == "true" ? <GetArticle /> : <Login />}
+          />
+        <Route
+            path="/profile"
+            element={isLoggedIn == "true" ? <Profile /> : <Login />}
+          />
+        <Route
+            path="/articleDetail/:id"
+            element={isLoggedIn == "true" ? <GetOneArticle /> : <Login />}
+          />
         {/* <Route path="/product" element={<Product />} /> */}
         <Route path="/login" element={<Login />} />
+        {/* <Route path="/articles" element={<GetArticle />} /> */}
         {/* <Route path="/signup" element={<SignUp />} /> */}
         <Route 
         path="/signup" 
@@ -44,6 +57,10 @@ function App() {
         <Route 
         path="/createEvent" 
         element={role === "admin" ? <CreateEvent /> : <Navigate to="/forbidden" />} 
+      />
+        <Route 
+        path="/manageEvent" 
+        element={role === "admin" ? <ManageEvent /> : <Navigate to="/forbidden" />} 
       />
       {/* Define a Forbidden component for unauthorized access */}
       <Route path="/forbidden" element={<Forbidden />} />

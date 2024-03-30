@@ -10,7 +10,7 @@ import axios from 'axios'
 // axios.defaults.baseURL = 'https://backend-test-ad5x.onrender.com/admin';
 axios.defaults.baseURL = 'http://localhost:5000/admin'
 
-const ManageAccount = () =>{
+const ManageEvent = () =>{
   //giup bat tat add section
 //setAddSection la 1 function de update addSection, useState de set mac dinh addSection la false
 const[addSection, setAddSection] = useState(false)
@@ -21,17 +21,18 @@ const [editSection, setEditSection] = useState(false)
 //setFormData la built-in function trong React
 const[formData, setFormData] = useState({
   name: "",
-  email: "",
-  password: "",
-  role: ""
+  description: "",
+  status: "",
+  department: "",
+  firstDeadline: ""
 })
 const[formDataEdit, setFormDataEdit] = useState({
     _id : "",
     name: "",
-    email: "",
-    password: "",
-    role: "",
-    department: ""
+  description: "",
+  status: "",
+  department: "",
+  firstDeadline: ""
 })
 //giup lay du lieu tu backend
 const [dataList, setDataList] = useState([])
@@ -48,10 +49,10 @@ const handleOnChange = (e)=>{ //e: event triggered. Trong truong hop nay la khi 
 
 //fetch data from db, display all data
 const getFetchData = async()=>{
-  const data = await axios.get("/")
-  console.log(data)
-  if(data.data.success){
-    setDataList(data.data.data)
+  const data = await axios.get("/events")
+  console.log(data.statusText)
+  if(data.statusText === 'OK'){
+    setDataList(data.data)
     // alert(data.data.message)
   }
 }
@@ -62,11 +63,12 @@ useEffect(()=>{
 
 //delete
 const handleDelete = async(id)=>{
-  const data = await axios.delete("/deleteAccount/"+id)
-  if (data.data.success)
+  const data = await axios.delete("/deleteEvent/"+id)
+//   console.log(data)
+  if (data.statusText === 'OK')
   {
     getFetchData()
-    alert(data.data.message)
+    alert('Delete Event Successfully')
   }
 }
 
@@ -74,7 +76,7 @@ const handleDelete = async(id)=>{
 const handleUpdate = async(e, id)=>{
   e.preventDefault()
 
-  const data = await axios.put("/updateAccount/"+id, formDataEdit)
+  const data = await axios.put("/updateEvent/"+id, formDataEdit)
   if (data.data.success)
   {
     getFetchData()
@@ -107,7 +109,7 @@ const logOut = () => {
 return(
 <div className='container'>
   <br /><br />
-  <Link to="/Signup">
+  <Link to="/createEvent">
         <button className='btn btn-success' onClick={()=>setAddSection(true)}>Add</button> &nbsp;
         </Link>
         <div className='text-end'>
@@ -139,27 +141,26 @@ return(
   </div>
 
   <div className="form-group">
-    <label htmlFor='email'>Email:</label>
-    <input type="text" className="form-control" id='email' name='email' onChange={handleEditOnChange} value={formDataEdit.email} readOnly/>
+    <label htmlFor='email'>Description:</label>
+    <input type="text" className="form-control" id='description' name='description' onChange={handleEditOnChange} value={formDataEdit.description}/>
   </div>
 
-  <div className="form-group">
-    <label htmlFor='password'>Password:</label>
-    <input type="password" className="form-control" id='password' name='password' onChange={handleEditOnChange} />
-  </div>
+  <div className="col-md-6 mb-4">
+                      <h6 className="mb-2 pb-1">Select the status: </h6>
+                        <input className="form-check-input" type="radio"
+                        name="Status"
+                        value="Available"
+                        onChange={handleEditOnChange}/>
+                        <label className="form-check-label" htmlFor="femaleGender">&nbsp;Available &nbsp; &nbsp;</label>
+                        <input className="form-check-input" type="radio"
+                          name="Status"
+                          value="Unavailable"
+                          onChange={handleEditOnChange}/>
+                        <label className="form-check-label" htmlFor="femaleGender">&nbsp;Unavailable</label>
+                        
+                    </div>
 
-  <div className="form-group">
-    <label htmlFor='role'>Choose a role:</label>
-    <select className="form-control" name="role" id="role" onChange={handleEditOnChange}>
-      {/* <option value="Staff" selected>Staff</option> */}
-      <option value="admin">Admin</option>
-      <option value="Manager">Manager</option>
-      <option value="Coordinator">Coordinator</option>
-      <option value="Student" selected>Student</option>
-    </select>
-  </div>
-
-  <div className="form-group">
+  {/* <div className="form-group">
     <label htmlFor='department'>Choose a department:</label>
     <select className="form-control" name="department" id="department" onChange={handleEditOnChange}>
       <option value="">Select an option</option>
@@ -167,6 +168,27 @@ return(
       <option value="Business">Business</option>
       <option value="Design">Design</option>
     </select>
+  </div> */}
+  <div className="mb-3">
+                          <label>Faculty</label>
+                          <select
+                            className="form-control"
+                            onChange={handleEditOnChange}
+                          >
+                            <option value="All">All Faculties</option>
+                            {dataList.map((el) => {
+                                return (
+                                    <option key={el._id} value={el.name}>
+                                    {el.name}
+                                  </option>
+                                );
+                            })}
+                          </select>
+                        </div>
+
+                        <div className="form-group">
+    <label htmlFor='email'>Description:</label>
+    <input type="datetime-local" id="datetime" min=""  className="form-control form-control-lg" onChange={handleEditOnChange}></input>
   </div>
 
   <button className='btn btn-primary' >Submit</button>
@@ -180,7 +202,7 @@ return(
       <div className="container">
         <div className="row justify-content-center">
           <div className="col-md-6 text-center mb-5">
-            <h2 className="heading-section">Account Management</h2>
+            <h2 className="heading-section">Event Management</h2>
           </div>
         </div>
         <div className="row">
@@ -190,9 +212,10 @@ return(
                 <thead className="thead-primary">
                   <tr>
                     <th className='category-header'>Name</th>
-                    <th className='category-header'>Email</th>
-                    <th className='category-header'>Role</th>
+                    <th className='category-header'>Status</th>
                     <th className='category-header'>Department</th>
+                    <th className='category-header'>First Deadline</th>
+                    <th className='category-header'>Final Deadline</th>
                     <th className='category-header'>Action</th>
                   </tr>
                 </thead>
@@ -201,10 +224,11 @@ return(
                     return (
                       <tr key={el._id}>
                         <td>{el.name}</td>
-                        <td>{el.email}</td>
+                        <td>{el.status}</td>
                         {/* <td>{el.password}</td> */}
-                        <td>{el.role}</td>
                         <td>{el.department}</td>
+                        <td>{el.closureDates.firstDeadline}</td>
+                        <td>{el.closureDates.finalClosureDate}</td>
                         <td>
                           <button className='btn btn-primary gradient-custom gradient-custom-2 edit-button' onClick={() => handleEdit(el)}>Edit</button>
                           <button className='btn btn-danger' onClick={() => handleDelete(el._id)}>Delete</button>
@@ -225,4 +249,4 @@ return(
  )
 }
 
-export default ManageAccount
+export default ManageEvent

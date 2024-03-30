@@ -125,7 +125,7 @@ axios.post('/admin/createAccount', {
                   </div>
                   <div className="mt-4 pt-2">
                     <button type="submit" className="btn btn-primary btn-lg gradient-custom">Submit</button>&nbsp;&nbsp;
-                    <a href="/login" className="btn btn-warning btn-lg gradient-custom-2">Login Now</a>
+                    {/* <a href="/login" className="btn btn-warning btn-lg gradient-custom-2">Login Now</a> */}
                   </div>
                 </form>
               </div>

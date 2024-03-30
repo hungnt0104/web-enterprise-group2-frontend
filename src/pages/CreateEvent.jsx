@@ -2,7 +2,7 @@ import React, { Component, useState } from "react";
 import axios from 'axios';
 import { useEffect } from 'react';
 
-export default function SignUp() {
+export default function CreateEvent() {
   const [name, setName] = useState("");
   const [department, setDepartment] = useState("");
   const [firstDeadline, setFirstDeadline] = useState("");
@@ -30,7 +30,7 @@ axios.post('/admin/createEvent', {
 })
   .then((response) => {
     const data = response.data;
-    // console.log(data, 'userRegister');
+    console.log(data, 'userRegister');
     if (data.status === 'ok') {
       setDepartment(null);
       alert('Create Event Successfully');
@@ -115,9 +115,6 @@ const getFetchData = async()=>{
                                   </option>
                                 );
                             })}
-                            {/* <option value="IT">IT</option>
-                            <option value="Business">Business</option>
-                            <option value="Design">Design</option> */}
                           </select>
                         </div>
                   </div>

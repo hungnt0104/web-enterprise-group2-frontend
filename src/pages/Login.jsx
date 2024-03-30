@@ -23,6 +23,8 @@ axios.post('/users/login', {
       window.localStorage.setItem('loggedIn', true);
       window.localStorage.setItem('userId', data.data.userId);
       window.localStorage.setItem('role', data.data.role);
+      window.localStorage.setItem('email', data.data.email);
+      window.localStorage.setItem('name', data.data.name);
       window.location.href = './menu';
     }
   })
