@@ -54,7 +54,7 @@ function Article() {
                     <button type="submit">Upload</button>
                 </div>
             </form>
-            {uploadStatus && <p>{uploadStatus}</p>}
+            {uploadStatus  && <p>{uploadStatus}</p>}
         </div>
     );
 }
