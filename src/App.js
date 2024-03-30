@@ -10,6 +10,7 @@ import Login from './pages/Login';
 import SignUp from './pages/Signup';
 import ManageAccount from './pages/ManageAccount';
 import CreateEvent from './pages/CreateEvent';
+import CreateArticle from './pages/Article';
 // import UserDetails from './components/userDetails';
 // import Product from './components/Product';
 // import Cart from './components/Cart';
@@ -18,7 +19,7 @@ import CreateEvent from './pages/CreateEvent';
 // import Index from './components/Index'
 
 // axios.defaults.baseURL = 'https://backend-test-ad5x.onrender.com/admin';
-axios.defaults.baseURL = 'http://localhost:5000/admin'
+axios.defaults.baseURL = 'http://localhost:5000'
 
 function App() {
   // const isLoggedIn = window.localStorage.getItem("loggedIn")
@@ -44,6 +45,11 @@ function App() {
         <Route 
         path="/createEvent" 
         element={role === "admin" ? <CreateEvent /> : <Navigate to="/forbidden" />} 
+      />
+
+<Route 
+        path="/articles/createArticle" 
+        element={ <CreateArticle /> } 
       />
       {/* Define a Forbidden component for unauthorized access */}
       <Route path="/forbidden" element={<Forbidden />} />
