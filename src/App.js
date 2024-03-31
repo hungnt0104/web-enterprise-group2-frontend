@@ -10,14 +10,14 @@ import Login from './pages/Login';
 import SignUp from './pages/Signup';
 import ManageAccount from './pages/ManageAccount';
 import CreateEvent from './pages/CreateEvent';
-<<<<<<< HEAD
+//<<<<<<< HEAD
 import ManageEvent from './pages/ManageEvent';
 import GetArticle from './pages/GetArticle';
 import Profile from './pages/Profile';
 import GetOneArticle from './pages/GetOneArticle';
-=======
+//=======
 import CreateArticle from './pages/Article';
->>>>>>> f815ad4ce26ba51bf4f21127560599d2aa16713d
+//>>>>>>> f815ad4ce26ba51bf4f21127560599d2aa16713d
 // import UserDetails from './components/userDetails';
 // import Product from './components/Product';
 // import Cart from './components/Cart';
@@ -26,11 +26,11 @@ import CreateArticle from './pages/Article';
 // import Index from './components/Index'
 
 // axios.defaults.baseURL = 'https://backend-test-ad5x.onrender.com/admin';
-<<<<<<< HEAD
+//<<<<<<< HEAD
 // axios.defaults.baseURL = 'http://localhost:5000/admin'
-=======
+//=======
 axios.defaults.baseURL = 'http://localhost:5000'
->>>>>>> f815ad4ce26ba51bf4f21127560599d2aa16713d
+//>>>>>>> f815ad4ce26ba51bf4f21127560599d2aa16713d
 
 function App() {
   const isLoggedIn = window.localStorage.getItem("loggedIn")
@@ -66,16 +66,16 @@ function App() {
         path="/createEvent" 
         element={role === "admin" ? <CreateEvent /> : <Navigate to="/forbidden" />} 
       />
-<<<<<<< HEAD
+
         <Route 
         path="/manageEvent" 
-        element={role === "admin" ? <ManageEvent /> : <Navigate to="/forbidden" />} 
-=======
+        element={role === "admin" ? <ManageEvent /> : <Navigate to="/forbidden" />} />
+
 
 <Route 
         path="/articles/createArticle" 
         element={ <CreateArticle /> } 
->>>>>>> f815ad4ce26ba51bf4f21127560599d2aa16713d
+// >>>>>>> f815ad4ce26ba51bf4f21127560599d2aa16713d 
       />
       {/* Define a Forbidden component for unauthorized access */}
       <Route path="/forbidden" element={<Forbidden />} />
