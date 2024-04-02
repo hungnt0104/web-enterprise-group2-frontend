@@ -147,6 +147,7 @@ return(
                     <th className='category-header'>Title</th>
                     <th className='category-header'>Content</th>
                     <th className='category-header'>Images</th>
+                    <th className='category-header'>Files</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -154,6 +155,7 @@ return(
                         <td>{article.title}</td>
                         <td>{article.content}</td>
                         <td><img src={`http://localhost:5000/images/${article.images}`} alt="Example" /></td>
+                        <td><a href={`http://localhost:5000/pdfs/${article.pdfs}`} target="_blank" rel="noopener noreferrer">Open/Download PDF</a></td>
                       </tr>
                 </tbody>
               </table>

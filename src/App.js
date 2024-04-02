@@ -29,7 +29,7 @@ import CreateArticle from './pages/Article';
 //<<<<<<< HEAD
 // axios.defaults.baseURL = 'http://localhost:5000/admin'
 //=======
-axios.defaults.baseURL = 'http://localhost:5000'
+// axios.defaults.baseURL = 'http://localhost:5000'
 //>>>>>>> f815ad4ce26ba51bf4f21127560599d2aa16713d
 
 function App() {
