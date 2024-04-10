@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-lone-blocks */
 import React, { Component, useState } from "react";
 import axios from 'axios';
 

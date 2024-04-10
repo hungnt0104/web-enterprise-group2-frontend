@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable eqeqeq */
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Navigate } from 'react-router-dom';
@@ -10,6 +12,7 @@ import Login from './pages/Login';
 import SignUp from './pages/Signup';
 import ManageAccount from './pages/ManageAccount';
 import CreateEvent from './pages/CreateEvent';
+
 //<<<<<<< HEAD
 import ManageEvent from './pages/ManageEvent';
 import GetArticle from './pages/GetArticle';
@@ -17,6 +20,7 @@ import Profile from './pages/Profile';
 import GetOneArticle from './pages/GetOneArticle';
 //=======
 import CreateArticle from './pages/Article';
+
 //>>>>>>> f815ad4ce26ba51bf4f21127560599d2aa16713d
 // import UserDetails from './components/userDetails';
 // import Product from './components/Product';
@@ -56,20 +60,25 @@ function App() {
         {/* <Route path="/signup" element={<SignUp />} /> */}
         <Route 
         path="/signup" 
-        element={role === "admin" ? <SignUp /> : <Navigate to="/forbidden" />} 
+        element={role === "Admin" ? <SignUp /> : <Navigate to="/forbidden" />} 
       />
         <Route 
         path="/manageaccount" 
-        element={role === "admin" ? <ManageAccount /> : <Navigate to="/forbidden" />} 
+        element={role === "Admin" ? <ManageAccount /> : <Navigate to="/forbidden" />} 
       />
         <Route 
         path="/createEvent" 
-        element={role === "admin" ? <CreateEvent /> : <Navigate to="/forbidden" />} 
+        element={role === "Admin" ? <CreateEvent /> : <Navigate to="/forbidden" />} 
       />
 
         <Route 
         path="/manageEvent" 
-        element={role === "admin" ? <ManageEvent /> : <Navigate to="/forbidden" />} />
+        element={role === "Admin" ? <ManageEvent /> : <Navigate to="/forbidden" />} />
+      
+      
+
+
+
 
 
 <Route 
