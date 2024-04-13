@@ -2099,6 +2099,10 @@ section {
   position: relative;
 }
 
+/* h1, h2, h3, h4, h5, h6, p {
+  color: #000 !important;
+} */
+
 .hero .info h2:after {
   content: "";
   position: absolute;
@@ -2886,3 +2890,4 @@ section {
 .hoverCard:hover{
   transform: scale(1.05)!important;
 }
+

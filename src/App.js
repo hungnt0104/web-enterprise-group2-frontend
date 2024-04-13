@@ -3,8 +3,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Navigate } from 'react-router-dom';
-import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css'
+// import './App.css';
+// import 'bootstrap/dist/css/bootstrap.min.css'
 // import { routes } from './routes/index'
 
 import axios from 'axios'
@@ -20,84 +20,57 @@ import Profile from './pages/Profile';
 import GetOneArticle from './pages/GetOneArticle';
 //=======
 import CreateArticle from './pages/Article';
-
-//>>>>>>> f815ad4ce26ba51bf4f21127560599d2aa16713d
-// import UserDetails from './components/userDetails';
-// import Product from './components/Product';
-// import Cart from './components/Cart';
-// import Payment from './components/Payment';
-// import AllPayment from './components/AllPayment'
-// import Index from './components/Index'
-
-// axios.defaults.baseURL = 'https://backend-test-ad5x.onrender.com/admin';
-//<<<<<<< HEAD
-// axios.defaults.baseURL = 'http://localhost:5000/admin'
-//=======
-// axios.defaults.baseURL = 'http://localhost:5000'
-//>>>>>>> f815ad4ce26ba51bf4f21127560599d2aa16713d
+import Comment from './pages/Comment';
+import TokenExpirationChecker from './TokenExpirationChecker';
 
 function App() {
   const isLoggedIn = window.localStorage.getItem("loggedIn")
   const role = window.localStorage.getItem("role")
   return (
     <Router>
-      <Routes>
-        <Route
+      <TokenExpirationChecker> {/* Wrap the Routes with TokenExpirationChecker */}
+        <Routes>
+          <Route
+            path="/"
+            element={isLoggedIn == "true" ? <GetArticle /> : <Login />}
+          />
+          <Route
             path="/menu"
             element={isLoggedIn == "true" ? <GetArticle /> : <Login />}
           />
-        <Route
+          <Route
             path="/profile"
             element={isLoggedIn == "true" ? <Profile /> : <Login />}
           />
-        <Route
+          <Route
             path="/articleDetail/:id"
             element={isLoggedIn == "true" ? <GetOneArticle /> : <Login />}
           />
-        {/* <Route path="/product" element={<Product />} /> */}
-        <Route path="/login" element={<Login />} />
-        {/* <Route path="/articles" element={<GetArticle />} /> */}
-        {/* <Route path="/signup" element={<SignUp />} /> */}
-        <Route 
-        path="/signup" 
-        element={role === "Admin" ? <SignUp /> : <Navigate to="/forbidden" />} 
-      />
-        <Route 
-        path="/manageaccount" 
-        element={role === "Admin" ? <ManageAccount /> : <Navigate to="/forbidden" />} 
-      />
-        <Route 
-        path="/createEvent" 
-        element={role === "Admin" ? <CreateEvent /> : <Navigate to="/forbidden" />} 
-      />
-
-        <Route 
-        path="/manageEvent" 
-        element={role === "Admin" ? <ManageEvent /> : <Navigate to="/forbidden" />} />
-      
-      
-
-
-
-
-
-<Route 
-        path="/articles/createArticle" 
-        element={ <CreateArticle /> } 
-// >>>>>>> f815ad4ce26ba51bf4f21127560599d2aa16713d 
-      />
-      {/* Define a Forbidden component for unauthorized access */}
-      <Route path="/forbidden" element={<Forbidden />} />
-        {/* <Route path="/menu" element={<UserDetails />} /> */}
-        {/* <Route path="/cart" element={<Cart />} /> */}
-
-        {/* <Route 
-            path="/payment" 
-            element={role == "Admin" ? <AllPayment /> : <Payment/>} />
-
-        <Route path="/allPayment" element={<AllPayment />} />
-        <Route path="/" element={<Index />} /> */}
-      </Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route 
+            path="/manageaccount" 
+            element={role === "admin" ? <ManageAccount /> : <Forbidden />} 
+          />
+          <Route 
+            path="/createEvent" 
+            element={role === "admin" ? <CreateEvent /> : <Forbidden />} 
+          />
+          <Route 
+            path="/manageEvent" 
+            element={role === "admin" ? <ManageEvent /> : <Forbidden />} 
+          />
+          <Route 
+            path="/articleDetail/:id/comment" 
+            element={isLoggedIn == "true" ? <Comment /> : <Login />}
+          />
+          <Route 
+            path="/articles/createArticle" 
+            element={<CreateArticle />} 
+          />
+          <Route path="/forbidden" element={<Forbidden />} />
+        </Routes>
+      </TokenExpirationChecker>
     </Router>
   );
 }

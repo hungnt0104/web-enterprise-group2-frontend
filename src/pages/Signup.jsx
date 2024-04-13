@@ -105,7 +105,7 @@ axios.post('/admin/createAccount', {
                         </div>
                         ) : 
                         (
-                          <option value={null}>No Department</option>
+                          <option value="null">No Department</option>
                         )
                         }
                   </div>

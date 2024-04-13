@@ -1,212 +1,14 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable no-unused-vars */
-// import React from 'react'
-// import "../App.css"
-// import { useState } from 'react';
-// import { useEffect } from 'react';
-// import { Link } from 'react-router-dom';
-// import axios from 'axios';
-// import { useParams } from 'react-router-dom';
-// import JSZip from 'jszip';
-// import { saveAs } from 'file-saver';
 
-
-
-// axios.defaults.baseURL = 'http://localhost:5000/articles'
-
-// const GetOneArticle = () =>{
-//   //giup bat tat add section
-// //setAddSection la 1 function de update addSection, useState de set mac dinh addSection la false
-// const[addSection, setAddSection] = useState(false)
-// //bat tat update section
-// const [editSection, setEditSection] = useState(false)
-// const [error, setError] = useState(null);
-// //giup lay du lieu trong form
-// //setFormData la built-in function trong React
-// const[formData, setFormData] = useState({
-//   title: "",
-//   content: "",
-//   images: ""
-// })
-// const[formDataEdit, setFormDataEdit] = useState({
-//     _id : "",
-//     title: "",
-//   content: "",
-//   images: ""
-// })
-// //giup lay du lieu tu backend
-// const [dataList, setDataList] = useState([])
-
-// const handleOnChange = (e)=>{ //e: event triggered. Trong truong hop nay la khi minh update. khi minh gan no vao onChange, React tu hieu e la 1 event
-//   const {value, name} = e.target //target la cac input, value va name la value va name cua cac input
-//   setFormData((previous)=>{ //previous: previous state trong form
-//     return{
-//       ...previous,//neu k co previous thi data se k lay dc het ma chi lay dc cai state ngay trc do
-//       [name] : value //update value trong form data
-//     }
-//   })
-// }
-
-// const { id } = useParams();
-// console.log(id)
-// const [article, setArticle] = useState(false);
-
-
-// //fetch data from db, display all data
-// // const id  = useParams();
-// const getFetchData = async(id)=>{
-//   const data = await axios.get("/getArticles/"+id)
-//   if(data.statusText === 'OK'){
-//     setArticle(data.data)
-//   }
-// }
-
-// useEffect(()=>{
-//   getFetchData(id)
-// }, [])
-
-// const handleEditOnChange = async(e)=>{
-//   const {value, name} = e.target
-//   setFormDataEdit((previous)=>{
-//     return{
-//       ...previous,
-//       [name] : value
-//     }
-//   })
-// }
-
-// const handleEdit = (el) =>{
-//   setFormDataEdit(el)
-//   setEditSection(true)
-// }
-
-// const logOut = () => {
-//     window.localStorage.clear();
-//     window.location.href = "./login";
-//   };
-
-
-// // Dowload ZIP
-
-// const handleDownloadAsZip = async () => {
-//   try {
-//     // Create a new JSZip instance
-//     const zip = new JSZip();
-
-//     // Fetch article data from your backend API
-//     const response = await axios.get(`/getArticles/${id}`);
-//     const articleData = response.data;
-
-//     // Fetch PDF file data from your backend API
-//     const pdfUrl = `http://localhost:5000/pdfs/${articleData.pdfs}`;
-//     const pdfResponse = await axios.get(pdfUrl, {
-//       responseType: 'arraybuffer' // Ensure binary response
-//     });
-
-//     // Add the PDF file to the zip
-//     zip.file(`${articleData.title}.pdf`, pdfResponse.data);
-
-//     // Add other article fields to the zip
-//     zip.file('name.txt', articleData.name);
-//     zip.file('content.txt', articleData.content);
-
-//     // Fetch image data and add them to the zip
-//     const imageUrl = `http://localhost:5000/images/${articleData.images}`;
-//     const imageResponse = await axios.get(imageUrl, {
-//       responseType: 'arraybuffer' // Ensure binary response
-//     });
-
-//     if (imageResponse.status !== 200) {
-//       setError('Error fetching article images.'); // Set error message
-//       return;
-//     }
-
-//     zip.file(`${articleData.images}`, imageResponse.data);
-
-//     // Generate the zip file
-//     const zipBlob = await zip.generateAsync({ type: 'blob' });
-
-//     // Save the zip file
-//     saveAs(zipBlob, `${articleData.title}.zip`);
-//   } catch (error) {
-//     console.error('Error downloading article as zip:', error);
-//     setError('Error downloading article as zip. Please try again later.'); // Set error message
-//   }
-// };
-
-
-
-
-
-
-
-
-
-
-
-// return(
-// <div className='container'>
-//   <br /><br />
-//         <div className='text-end'>
-//         <button onClick={logOut} className="btn btn-primary text-end">
-//           Log Out
-//         </button> 
-//         </div>
-//         &nbsp;
-
-// <section className="ftco-section">
-//       <div className="container">
-//         <div className="row justify-content-center">
-//           <div className="col-md-6 text-center mb-5">
-//             <h2 className="heading-section">Article Detail</h2>
-//           </div>
-//         </div>
-//         <div className="row">
-//           <div className="col-md-12">
-//             <div className="table-wrap"  style={{ overflowX: 'auto' }}>
-//               <table className="table">
-//                 <thead className="thead-primary">
-//                   <tr>
-//                     <th className='category-header'>Title</th>
-//                     <th className='category-header'>Content</th>
-//                     <th className='category-header'>Images</th>
-//                     <th className='category-header'>Files</th>
-//                   </tr>
-//                 </thead>
-//                 <tbody>
-//                       <tr key={article._id}>
-//                         <td>{article.title}</td>
-//                         <td>{article.content}</td>
-//                         <td><img src={`http://localhost:5000/images/${article.images}`} alt="Example" style={{ width: '500px', height: '350px' }} /></td>
-//                         <td><a href={`http://localhost:5000/pdfs/${article.pdfs}`} target="_blank" rel="noopener noreferrer">Open PDF</a></td>
-//                       </tr>
-//                 </tbody>
-//               </table>
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-//     </section>
-//     {error && <div className="alert alert-danger" role="alert">{error}</div>}
-//       <div className="row justify-content-center">
-        
-     
-//         <button onClick={handleDownloadAsZip} className="btn btn-secondary">Download as Zip</button>
-
-//       </div>
-// <br /><br />
-// </div>
-//  )
-// }
-
-// export default GetOneArticle
 
 
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link, useParams } from 'react-router-dom';
+import {  useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import JSZip from 'jszip';
 import { saveAs } from 'file-saver';
+import Header from './component/Header';
 
 axios.defaults.baseURL = 'http://localhost:5000/articles';
 
@@ -214,6 +16,61 @@ const GetOneArticle = () => {
     const { id } = useParams();
     const [article, setArticle] = useState(null);
     const [error, setError] = useState(null);
+    const [comment, setComment] = useState('');
+    const [isSelected, setIsSelected] = useState('');
+	// const [author, setAuthor] = useState('');
+    const author = window.localStorage.getItem('name')
+	const location = useLocation();
+    const articleId = location.pathname.split('/')[2];
+
+    const handleSelect = async (e) => {
+      e.preventDefault();
+      
+      try {
+          const response = await axios.post(`http://localhost:5000/articles/setIsSelected/${articleId}`);
+          console.log(response.data); // Log success message
+    window.alert('You have approved this article successfully!'); // Show success message
+    window.location.reload();
+          // window.history.back();
+          // Optionally, you can reset the comment state or show a success message to the user
+      } catch (error) {
+          console.error(error); // Log error message
+      }
+  };
+    const handleDisSelect = async (e) => {
+      e.preventDefault();
+      
+      try {
+          const response = await axios.post(`http://localhost:5000/articles/setIsSelectedToFalse/${articleId}`);
+          console.log(response.data); // Log success message
+    window.alert('You have disapproved this article successfully!'); // Show success message
+    window.location.reload();
+          // window.history.back();
+          // Optionally, you can reset the comment state or show a success message to the user
+      } catch (error) {
+          console.error(error); // Log error message
+      }
+  };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        
+        try {
+			// console.log(articleId)
+            const response = await axios.post(`http://localhost:5000/articles/commentArticle/${articleId}`, {
+                comment, author
+            });
+            console.log(response.data); // Log success message
+			window.alert('Comment submitted successfully!'); // Show success message
+      window.location.reload();
+            // window.history.back();
+            // Optionally, you can reset the comment state or show a success message to the user
+        } catch (error) {
+            console.error(error); // Log error message
+            // Optionally, you can show an error message to the user
+        }
+    };
+
 
     useEffect(() => {
         fetchData(id);
@@ -273,8 +130,172 @@ const GetOneArticle = () => {
     }
 
     return (
+      <div>
+      <Header/>
         <div className='container'>
-            <br /><br />
+            <main>
+                
+      {/* Blog Area */}
+      <section className="blog_area single-post-area section-padding">
+        <div className="container">
+          <div className="row">
+            <div className="col-lg-8 posts-list">
+              <div className="single-post">
+                <div className="feature-img">
+                  
+                </div>
+                <div className="blog_details">
+                  <h2>{article.title}
+                  </h2>
+                  <ul className="blog-info-link mt-3 mb-4">
+                    <li><a href="#"><i className="fa fa-user"></i> {article.department}</a></li>
+                    <li><a href="#"><i className="fa fa-comments"></i>{article.comments.length}</a></li>
+                  </ul>
+                  <p>
+                    {article.content}
+                  </p>
+                  {article.images.map((image, index) => (
+                                    <img key={index} src={`http://localhost:5000/images/${image}`} alt={`Image ${index}`} style={{ width: '100%', height: 'auto', marginBottom: '10px' }} />
+                                ))}
+                </div>
+              </div>
+              <div className="navigation-top">
+                <div className="d-sm-flex justify-content-between text-center">
+                  <div className="col-sm-4 text-center my-2 my-sm-0">
+                    {/* Comment count */}
+                  </div>
+                  <ul className="social-icons">
+                    <li><a href="#"><i className="fab fa-facebook-f"></i></a></li>
+                    <li><a href="#"><i className="fab fa-twitter"></i></a></li>
+                    <li><a href="#"><i className="fab fa-dribbble"></i></a></li>
+                    <li><a href="#"><i className="fab fa-behance"></i></a></li>
+                  </ul>
+                </div>
+                <div className="navigation-area">
+                  <div className="row">
+                    <div className="col-lg-6 col-md-6 col-12 nav-left flex-row d-flex justify-content-start align-items-center">
+                      <div className="thumb">
+                      </div>
+                      <div className="arrow">
+                        <a href="#">
+                          <span className="lnr text-white ti-arrow-left"></span>
+                        </a>
+                      </div>
+                    </div>
+                    <div className="col-lg-6 col-md-6 col-12 nav-right flex-row d-flex justify-content-end align-items-center">
+                      {/* Right navigation */}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="blog-author">
+                <div className="media align-items-center">
+                  <img src="https://www.svgrepo.com/show/452030/avatar-default.svg" alt="" />
+                  <div className="media-body">
+                    <a href="#">
+                      <h4>{article.name}</h4>
+                    </a>
+                    <p>{article.email}</p>
+                  </div>
+                </div>
+              </div>
+              <div className="comments-area">
+                <h4>{article.comments.length} Comments</h4>
+                <div className="comment-list">
+ {article.comments.map((comment, index) => (
+  <div key={index} className="single-comment justify-content-between d-flex">
+    <div className="user justify-content-between d-flex">
+      <div className="thumb">
+        <img src="assets/img/comment/comment_3.png" alt="" />
+      </div>
+      <div className="desc">
+        <p className="comment">
+          {comment.text}
+        </p>
+        <div className="d-flex justify-content-between">
+          <div className="d-flex align-items-center">
+            <h5>
+              <a href="#">{comment.author}</a>
+            </h5>
+            <p className="date">{comment.date}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+))}
+</div>
+              </div>
+              <div className="comment-form">
+                <h4>Leave a Comment</h4>
+                <form className="form-contact comment_form" action="#" id="commentForm"  required onSubmit={handleSubmit}>
+                  <div className="row">
+                    <div className="col-12">
+                      <div className="form-group">
+                        <textarea className="form-control w-100" name="comment" id="comment" cols="30" rows="9" placeholder="Write Comment" value={comment}
+                   onChange={(e) => setComment(e.target.value)} required></textarea>
+                      </div>
+                    </div>
+                    
+                  </div>
+                  <div className="form-group">
+                    <button type="submit" className="button button-contactForm btn_1 boxed-btn">Send Message</button>
+                    
+                  </div>
+                  <div className="form-group">
+                  
+                  </div>
+                </form>
+                <button  onClick={handleDownloadAsZip} type="submit" className="button button-contactForm btn_1 boxed-btn">Download ZIP</button>
+                  &nbsp;&nbsp;&nbsp;
+                  {!article.isSelected ? (
+                    <button onClick={handleSelect} type="submit" className="button button-contactForm btn_1 boxed-btn">Approve</button>
+                  ) : (
+                    <button onClick={handleDisSelect} type="submit" className="button button-contactForm btn_1 boxed-btn">Disapprove</button>
+                  )}
+                  {/* <button onClick={handleSelect} type="submit" className="button button-contactForm btn_1 boxed-btn">Approve</button> */}
+              </div>
+            </div>
+            <div className="col-lg-4">
+              <div className="blog_right_sidebar">
+                <aside className="single_sidebar_widget search_widget">
+                  <form action="#">
+                    <div className="form-group">
+                      <div className="input-group mb-3">
+                        <input type="text" className="form-control" placeholder='Search Keyword' />
+                        <div className="input-group-append">
+                          <button className="btns" type="button"><i className="ti-search"></i></button>
+                        </div>
+                      </div>
+                    </div>
+                    <button className="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn" type="submit">Search</button>
+                  </form>
+                </aside>
+                <aside className="single_sidebar_widget post_category_widget">
+                <h4 className="widget_title">Attachment</h4>
+                <ul className=" cat-list">
+                  {/* <li>
+                    <a href="#" className="d-flex"> */}
+                      {article.pdfs.map((pdf, index) => (
+                                    <li key={index}><a href={`http://localhost:5000/pdfs/${pdf}`} target="_blank" rel="noopener noreferrer"><p>PDF {index + 1}</p></a></li>
+                                ))}
+                      {article.docs.map((doc, index) => (
+                                    <li key={index}><a href={`http://localhost:5000/docs/${doc}`} target="_blank" rel="noopener noreferrer"><p>Doc {index + 1}</p></a></li>
+                                ))}
+                    {/* </a>
+                  </li> */}
+                  {/* Other list items */}
+                </ul>
+              </aside>
+                {/* Other widgets */}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      {/* Blog Area end */}
+    </main>
+            {/* <br /><br />
             <section className="ftco-section">
                 <div className="container">
                     <div className="row justify-content-center">
@@ -311,14 +332,24 @@ const GetOneArticle = () => {
                                 ))}
                             </ul>
                         </div>
+                        <div className="col-md-3">
+                            <h4>Comments:</h4>
+                            <ul>
+                                {article.comments.map((comment, index) => (
+                                    <li key={index}>{comment}</li>
+                                ))}
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </section>
             {error && <div className="alert alert-danger" role="alert">{error}</div>}
             <div className="row justify-content-center">
                 <button onClick={handleDownloadAsZip} className="btn btn-secondary">Download All Files as ZIP</button>
+                <button onClick={handleCommentButtonClick} className="btn btn-primary">Comment</button>
             </div>
-            <br /><br />
+            <br /><br /> */}
+        </div>
         </div>
     );
 }

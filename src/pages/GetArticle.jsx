@@ -1,184 +1,16 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/style-prop-object */
-// import React from 'react'
-// import "../App.css"
-// import { useState } from 'react';
-// import { useEffect } from 'react';
-// import { Link } from 'react-router-dom';
-// import axios from 'axios'
-// // import 'node_modules/bootstrap/dist/css/bootstrap.min.css'
-// // import '../ProductStyle.css'
-
-// // axios.defaults.baseURL = 'https://backend-test-ad5x.onrender.com/admin';
-// axios.defaults.baseURL = 'http://localhost:5000/articles'
-
-// const GetArticle = () =>{
-//   //giup bat tat add section
-// //setAddSection la 1 function de update addSection, useState de set mac dinh addSection la false
-// const[addSection, setAddSection] = useState(false)
-// //bat tat update section
-// const [editSection, setEditSection] = useState(false)
-
-// //giup lay du lieu trong form
-// //setFormData la built-in function trong React
-// const[formData, setFormData] = useState({
-//   title: "",
-//   content: "",
-//   images: ""
-// })
-// const[formDataEdit, setFormDataEdit] = useState({
-//     _id : "",
-//     title: "",
-//   content: "",
-//   images: ""
-// })
-// //giup lay du lieu tu backend
-// const [dataList, setDataList] = useState([])
-
-// const handleOnChange = (e)=>{ //e: event triggered. Trong truong hop nay la khi minh update. khi minh gan no vao onChange, React tu hieu e la 1 event
-//   const {value, name} = e.target //target la cac input, value va name la value va name cua cac input
-//   setFormData((previous)=>{ //previous: previous state trong form
-//     return{
-//       ...previous,//neu k co previous thi data se k lay dc het ma chi lay dc cai state ngay trc do
-//       [name] : value //update value trong form data
-//     }
-//   })
-// }
-
-// //fetch data from db, display all data
-// const getFetchData = async()=>{
-//   const data = await axios.get("/getArticles")
-//   console.log(data.statusText)
-//   if(data.statusText === 'OK'){
-//     setDataList(data.data)
-//     // alert(data.data.message)
-//   }
-// }
-
-// useEffect(()=>{
-//   getFetchData()
-// }, [])
-
-// //get detail
-// // const handleDetail = async(id)=>{
-// //     const data = await axios.get("/getArticles/"+id)
-// //     console.log(data)
-// //     if(data.statusText === 'OK'){
-// //       setDataList(data.data)
-// //       // alert(data.data.message)
-// //     }
-// // }
-
-// // //update
-// // const handleUpdate = async(e, id)=>{
-// //   e.preventDefault()
-
-// //   const data = await axios.put("/updateEvent/"+id, formDataEdit)
-// //   if (data.data.success)
-// //   {
-// //     getFetchData()
-// //     alert(data.data.message)
-// //     setEditSection(false)
-// //   }
-// // }
-
-// const handleEditOnChange = async(e)=>{
-//   const {value, name} = e.target
-//   setFormDataEdit((previous)=>{
-//     return{
-//       ...previous,
-//       [name] : value
-//     }
-//   })
-// }
-
-// const handleEdit = (el) =>{
-//   setFormDataEdit(el)
-//   setEditSection(true)
-// }
-
-// const logOut = () => {
-//     window.localStorage.clear();
-//     window.location.href = "./login";
-//   };
-
-
-// return(
-// <div className='container'>
-//   <br /><br />
-//         <div className='text-end'>
-//         <button onClick={logOut} className="btn btn-primary text-end">
-//           Log Out
-//         </button> 
-//         </div>
-//         &nbsp;
-
-// <section className="ftco-section">
-//       <div className="container">
-//         <div className="row justify-content-center">
-//           <div className="col-md-6 text-center mb-5">
-//             <h2 className="heading-section">All Articles</h2>
-//           </div>
-//         </div>
-//         <div className="row">
-//           <div className="col-md-12">
-//             <div className="table-wrap"  style={{ overflowX: 'auto' }}>
-//               <table className="table">
-//                 <thead className="thead-primary">
-//                   <tr>
-//                     <th className='category-header'>Title</th>
-//                     <th className='category-header'>Content</th>
-//                     <th className='category-header'>Images</th>
-//                     <th className='category-header'>Selected</th>
-//                   </tr>
-//                 </thead>
-//                 <tbody>
-//                 {dataList.map((el) => {
-//                     return (
-//                       <tr key={el._id}>
-//                         <td>{el.title}</td>
-//                         <td>{el.content}</td>
-//                         <td>
-//   <img src={`http://localhost:5000/images/${el.images}`}
-//     alt="Example" style={{ width: '200px', height: '150px' }}
-//   />
-// </td>
-
-//                         <td>
-//                         <Link to={`/articleDetail/${el._id}`}>
-//                           <button className='btn btn-danger' >Detail</button>
-//                           </Link>
-//                         </td>
-//                       </tr>
-//                     );
-//                   })}
-//                 </tbody>
-//               </table>
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-//     </section>
-
-// <br /><br />
-// </div>
-//  )
-// }
-
-// export default GetArticle
-
-
-
-
 
 
 
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import Header from './component/Header';
+import Footer from './component/Footer';
+// import '../assets/img'
 
 const GetArticle = () => {
     const [articleList, setArticleList] = useState([]);
+    
 
     useEffect(() => {
         fetchData();
@@ -194,8 +26,129 @@ const GetArticle = () => {
     };
 
     return (
-        <div className="container">
-            <h2>All Articles</h2>
+        
+        <div>
+            <Header/>
+            <section className="blog_area section-padding">
+      <div className="container">
+        <div className="row">
+          <div className="col-lg-8 mb-5 mb-lg-0">
+            <div className="blog_left_sidebar">
+              
+              {/* <article className="blog_item">
+                
+                <div className="blog_item_img">
+                  <img className="card-img rounded-0" src="../assets/img/blog/single_blog_1.png" alt="" />
+                  <a href="#" className="blog_item_date">
+                    <h3>15</h3>
+                    <p>Jan</p>
+                  </a>
+                </div>
+
+                <div className="blog_details">
+                  <a className="d-inline-block" href="single-blog.html">
+                    <h2>Google inks pact for new 35-storey office</h2>
+                  </a>
+                  <p>That dominion stars lights dominion divide years for fourth have don't stars is that
+                      he earth it first without heaven in place seed it second morning saying.</p>
+                  <ul className="blog-info-link">
+                    <li><a href="#"><i className="fa fa-user"></i> Travel, Lifestyle</a></li>
+                    <li><a href="#"><i className="fa fa-comments"></i> 03 Comments</a></li>
+                  </ul>
+                </div>
+              </article> */}
+
+{articleList.map((article, index) => {
+    const date = new Date(article.date);
+    const dayOfMonth = date.getDate();
+    const monthText = date.toLocaleDateString('en-US', { month: 'long' });
+
+    return (
+        <article className="blog_item" key={index}>
+            <div className="blog_item_img">
+                <img style={{ height: '200px', width: '100%', objectFit: 'cover' }} className="card-img rounded-0" src={`http://localhost:5000/images/${article.images[0]}`} alt={`Article ${index}`} />
+                <a href="#" className="blog_item_date">
+                    <h3>{dayOfMonth}</h3>
+                    <p>{monthText}</p>
+                </a>
+            </div>
+
+            <div className="blog_details">
+                <a className="d-inline-block" href={`/articleDetail/${article._id}`}>
+                    <h2>{article.title}</h2>
+                </a>
+                <p>{article.content}</p>
+                <ul className="blog-info-link">
+                    <li><a href="#"><i className="fa fa-user"></i> {article.name}</a></li>
+                    <li><a href="#"><i className="fa fa-comments"></i> {article.comments.length} Comments</a></li>
+                </ul>
+            </div>
+        </article>
+    );
+})}
+
+              <nav className="blog-pagination justify-content-center d-flex">
+                <ul className="pagination">
+                  <li className="page-item">
+                    <a href="#" className="page-link" aria-label="Previous">
+                      <i className="ti-angle-left"></i>
+                    </a>
+                  </li>
+                  <li className="page-item">
+                    <a href="#" className="page-link">1</a>
+                  </li>
+                  <li className="page-item active">
+                    <a href="#" className="page-link">2</a>
+                  </li>
+                  <li className="page-item">
+                    <a href="#" className="page-link" aria-label="Next">
+                      <i className="ti-angle-right"></i>
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+          <div className="col-lg-4">
+            <div className="blog_right_sidebar">
+              <aside className="single_sidebar_widget search_widget">
+                <form action="#">
+                  <div className="form-group">
+                    <div className="input-group mb-3">
+                      <input type="text" className="form-control" placeholder='Search Keyword'
+                          onFocus={(e) => e.target.placeholder = ''}
+                          onBlur={(e) => e.target.placeholder = 'Search Keyword'} />
+                      <div className="input-group-append">
+                        <button className="btns" type="button"><i className="ti-search"></i></button>
+                      </div>
+                    </div>
+                  </div>
+                  <button className="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn"
+                      type="submit">Search</button>
+                </form>
+              </aside>
+
+              <aside className="single_sidebar_widget post_category_widget">
+                <h4 className="widget_title">Category</h4>
+                <ul className="list cat-list">
+                  <li>
+                    <a href="#" className="d-flex">
+                      <p>Resaurant food</p>
+                      <p>(37)</p>
+                    </a>
+                  </li>
+                  {/* Other list items */}
+                </ul>
+              </aside>
+
+              {/* Other aside widgets */}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <Footer/>
+            {/* <h2>All Articles</h2>
             <table className="table">
                 <thead>
                     <tr>
@@ -219,7 +172,7 @@ const GetArticle = () => {
                         </tr>
                     ))}
                 </tbody>
-            </table>
+            </table> */}
         </div>
     );
 };

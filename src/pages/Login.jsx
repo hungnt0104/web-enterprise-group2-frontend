@@ -25,6 +25,7 @@ axios.post('/users/login', {
       window.localStorage.setItem('role', data.data.role);
       window.localStorage.setItem('email', data.data.email);
       window.localStorage.setItem('name', data.data.name);
+      window.localStorage.setItem('department', data.data.department);
       window.location.href = './menu';
     }
   })
@@ -65,7 +66,7 @@ axios.post('/users/login', {
                       </div>
 
                       <div className="text-center pt-1 mb-5 pb-1">
-                        <button className="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3" type="submit">Log
+                        <button className="btn btn-block fa-lg gradient-custom-2 mb-3" type="submit">Log
                           in</button>
                           <br />
                         <a className="text-muted" href="#!">Forgot password?</a>
@@ -77,10 +78,11 @@ axios.post('/users/login', {
                     </form>
                   </div>
                 </div>
-                <div className="col-lg-6 d-flex align-items-center gradient-custom-2">
+                <div className="col-lg-6 d-flex align-items-center gradient-custom-2 login-bg">
+                  {/* <img src="../assets/img/background-img/everest.jpg" alt="" /> */}
                   <div className="text-white px-3 py-4 p-md-5 mx-md-4">
-                    <h4 className="mb-4">Create your idea now</h4>
-                    <p className="small mb-0">Share your ideas to other people</p>
+                    {/* <h4 className="mb-4">Create your idea now</h4>
+                    <p className="small mb-0">Share your ideas to other people</p> */}
                   </div>
                 </div>
               </div>
