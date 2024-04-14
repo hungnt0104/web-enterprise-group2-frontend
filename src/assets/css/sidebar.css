@@ -1,0 +1,42 @@
+/* Sidebar.css */
+/* Sidebar.css */
+
+.blog_right_sidebar {
+    margin-top: 20px;
+  }
+  
+  .single_sidebar_widget {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #e6e6e6;
+  }
+  
+  .widget_title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #333;
+    padding-bottom: 10px;
+  }
+  
+  .list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .list li {
+    margin-bottom: 10px;
+  }
+  
+  .list a {
+    text-decoration: none;
+    color: #333;
+    font-size: 16px;
+  }
+  
+  .list a:hover {
+    color: #007bff;
+    text-decoration: underline;
+  }
+  

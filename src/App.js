@@ -50,15 +50,15 @@ function App() {
           <Route path="/signup" element={<SignUp />} />
           <Route 
             path="/manageaccount" 
-            element={role === "admin" ? <ManageAccount /> : <Forbidden />} 
+            element={role === "Admin" ? <ManageAccount /> : <Forbidden />} 
           />
           <Route 
             path="/createEvent" 
-            element={role === "admin" ? <CreateEvent /> : <Forbidden />} 
+            element={role === "Admin" ? <CreateEvent /> : <Forbidden />} 
           />
           <Route 
             path="/manageEvent" 
-            element={role === "admin" ? <ManageEvent /> : <Forbidden />} 
+            element={role === "Admin" ? <ManageEvent /> : <Forbidden />} 
           />
           <Route 
             path="/articleDetail/:id/comment" 
