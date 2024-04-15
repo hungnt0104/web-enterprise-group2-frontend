@@ -21,6 +21,8 @@ import GetOneArticle from './pages/GetOneArticle';
 //=======
 import CreateArticle from './pages/Article';
 import Comment from './pages/Comment';
+import HomePage from './pages/HomePage'
+
 import TokenExpirationChecker from './TokenExpirationChecker';
 
 function App() {
@@ -37,6 +39,10 @@ function App() {
           <Route
             path="/menu"
             element={isLoggedIn == "true" ? <GetArticle /> : <Login />}
+          />
+          <Route
+            path="/home"
+            element={isLoggedIn == "true" ? <HomePage /> : <Login />}
           />
           <Route
             path="/profile"
@@ -65,7 +71,7 @@ function App() {
             element={isLoggedIn == "true" ? <Comment /> : <Login />}
           />
           <Route 
-            path="/articles/createArticle" 
+            path="/event/:id/createArticle" 
             element={<CreateArticle />} 
           />
           <Route path="/forbidden" element={<Forbidden />} />

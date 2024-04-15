@@ -1,6 +1,7 @@
 import React, { Component, useState } from "react";
 import axios from 'axios';
 import { useEffect } from 'react';
+import DatePicker from 'react-datepicker';
 
 export default function CreateEvent() {
   const [name, setName] = useState("");
@@ -11,6 +12,15 @@ export default function CreateEvent() {
   const [status, setStatus] = useState("");
 
   const [dataList, setDataList] = useState([])
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  const tomorrowString = tomorrow.toISOString().split('T')[0];
+
+  // const currentDate = new Date().toISOString().slice(0, new Date().toISOString().lastIndexOf(":"));
+  const currentDate = new Date();
+currentDate.setDate(currentDate.getDate() + 1);
+
+const formattedDate = currentDate.toISOString().slice(0, new Date().toISOString().lastIndexOf(":"));
 
   const handleSubmit = (e) => {
 
@@ -21,7 +31,7 @@ export default function CreateEvent() {
     //   axios.defaults.baseURL = 'https://backend-test-ad5x.onrender.com';
       axios.defaults.baseURL = 'http://localhost:5000';
 
-axios.post('/admin/createEvent', {
+axios.post('http://localhost:5000/admin/createEvent', {
   name,
   description,
   status,
@@ -46,7 +56,7 @@ axios.post('/admin/createEvent', {
 
 //fetch data from db, display all data
 const getFetchData = async()=>{
-    const data = await axios.get("/faculty")
+    const data = await axios.get("http://localhost:5000/admin/faculty")
     console.log(data)
     if(data.data.success){
       setDataList(data.data.data)
@@ -123,7 +133,10 @@ const getFetchData = async()=>{
                       <div className="form-outline">
                         <label className="form-label" htmlFor="emailAddress">First Deadline</label>
                         {/* <input type="email" id="emailAddress" className="form-control form-control-lg" onChange={(e) => setEmail(e.target.value)}/> */}
-                        <input type="datetime-local" id="datetime" min=""  className="form-control form-control-lg" onChange={(e) => setFirstDeadline(e.target.value)} required></input>
+                        <input 
+                         min={formattedDate}
+                           type="datetime-local" id="datetime"  className="form-control form-control-lg" onChange={(e) => setFirstDeadline(e.target.value)} required></input>
+
                       </div>
                     </div>
                   </div>

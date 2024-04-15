@@ -34,6 +34,7 @@ const[formDataEdit, setFormDataEdit] = useState({
   department: "",
   firstDeadline: ""
 })
+
 //giup lay du lieu tu backend
 const [dataList, setDataList] = useState([])
 
@@ -49,7 +50,7 @@ const handleOnChange = (e)=>{ //e: event triggered. Trong truong hop nay la khi 
 
 //fetch data from db, display all data
 const getFetchData = async()=>{
-  const data = await axios.get("/events")
+  const data = await axios.get("http://localhost:5000/admin/events")
   console.log(data.statusText)
   if(data.statusText === 'OK'){
     setDataList(data.data)
@@ -63,7 +64,7 @@ useEffect(()=>{
 
 //delete
 const handleDelete = async(id)=>{
-  const data = await axios.delete("/deleteEvent/"+id)
+  const data = await axios.delete("http://localhost:5000/admin/deleteEvent/"+id)
 //   console.log(data)
   if (data.statusText === 'OK')
   {
@@ -76,7 +77,7 @@ const handleDelete = async(id)=>{
 const handleUpdate = async(e, id)=>{
   e.preventDefault()
 
-  const data = await axios.put("/updateEvent/"+id, formDataEdit)
+  const data = await axios.put("http://localhost:5000/admin/updateEvent/"+id, formDataEdit)
   if (data.data.success)
   {
     getFetchData()
@@ -188,7 +189,7 @@ return(
 
                         <div className="form-group">
     <label htmlFor='email'>Description:</label>
-    <input type="datetime-local" id="datetime" min=""  className="form-control form-control-lg" onChange={handleEditOnChange}></input>
+    <input type="datetime-local" id="datetime" className="form-control form-control-lg" onChange={handleEditOnChange}></input>
   </div>
 
   <button className='btn btn-primary' >Submit</button>

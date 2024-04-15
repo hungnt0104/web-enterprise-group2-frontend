@@ -1,7 +1,7 @@
 
 import React, { useState } from "react";    
 import axios from 'axios';
-
+import {  useLocation } from 'react-router-dom';
 
 
 const Article = () => {
@@ -16,6 +16,8 @@ const Article = () => {
     const department = window.localStorage.getItem('department');
     const name = window.localStorage.getItem('name');
     const email = window.localStorage.getItem('email');
+    const location = useLocation();
+    const eventId = location.pathname.split('/')[2];
 
     const handleUpload = async (e) => {
         e.preventDefault();
@@ -32,6 +34,7 @@ const Article = () => {
         formData.append("department", department);
         formData.append("name", name);
         formData.append("email", email);
+        formData.append("eventId", eventId);
 
         // Append image files
         imageFiles.forEach(file => {
@@ -53,6 +56,7 @@ const Article = () => {
             const response = await axios.post('http://localhost:5000/articles/createArticle', formData, {
                 headers: {"Content-Type": "multipart/form-data"},
             });
+            window.alert("You've created article successfully")
             setUploadStatus(response.data.message);
             // Clear form fields and file inputs after successful upload
             setTitle("");
@@ -62,6 +66,7 @@ const Article = () => {
             setDocFiles([]);
             setError(""); // Clear any previous error message
         } catch (error) {
+            window.alert(error.response.data.message)
             console.error("Error uploading files:", error);
             setUploadStatus("Error uploading files");
         }

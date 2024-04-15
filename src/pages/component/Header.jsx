@@ -1,5 +1,5 @@
 import React from 'react';
-// import '../../assets'
+// import '../../../public/assets'
 import '../../assets/css/bootstrap.min.css';
 import '../../assets/css/owl.carousel.min.css';
 import '../../assets/css/ticker-style.css';
@@ -37,8 +37,8 @@ const Header = () => {
                 </div>
               </div>
             </div>
-          </div> */}
-          {/* <div className="header-mid gray-bg">
+          </div>
+          <div className="header-mid gray-bg">
             <div className="container">
               <div className="row d-flex align-items-center">
                 <div className="col-xl-3 col-lg-3 col-md-3 d-none d-md-block">
@@ -68,11 +68,11 @@ const Header = () => {
                       <ul id="navigation">
                         <li><a href="index.html">Home</a></li>
                         <li><a href="about.html">About</a></li>
-                        <li><a href="category.html">Category</a></li>
-                        <li><a href="latest_news.html">Latest News</a></li>
-                        <li><a href="#">Pages</a>
+                        <li><a href="category.html">Contribute</a></li>
+                        {/* <li><a href="latest_news.html">Latest News</a></li> */}
+                        <li><a href="#">My Articles</a>
                           <ul className="submenu">
-                            <li><a href="blog.html">Blog</a></li>
+                            <li><a href="blog.html">Manage My Contribution</a></li>
                             <li><a href="blog_details.html">Blog Details</a></li>
                             <li><a href="elements.html">Element</a></li>
                           </ul>
@@ -85,16 +85,18 @@ const Header = () => {
                 <div className="col-xl-4 col-lg-4 col-md-4">
                   <div className="header-right f-right d-none d-lg-block">
                     {/* Header Social */}
-                    <ul className="header-social">
-                      <li><a href="https://www.fb.com/sai4ull"><i className="fab fa-facebook-f"></i></a></li>
-                      <li><a href="#"><i className="fab fa-twitter"></i></a></li>
-                      <li><a href="#"><i className="fab fa-instagram"></i></a></li>
-                      <li><a href="#"><i className="fab fa-youtube"></i></a></li>
-                    </ul>
-                    {/* Search Nav */}
                     <div className="nav-search search-switch">
                       <i className="fa fa-search"></i>
                     </div>
+                    <ul className="header-social">
+                      <li><a href="#">Login</a></li>
+                      {/* <li><a href="https://www.fb.com/sai4ull"><i className="fab fa-facebook-f"></i></a></li>
+                      <li><a href="#"><i className="fab fa-twitter"></i></a></li>
+                      <li><a href="#"><i className="fab fa-instagram"></i></a></li>
+                      <li><a href="#"><i className="fab fa-youtube"></i></a></li> */}
+                    </ul>
+                    {/* Search Nav */}
+                    
                   </div>
                 </div>
                 {/* Mobile Menu */}
