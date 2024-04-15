@@ -2,6 +2,7 @@
 /* eslint-disable no-lone-blocks */
 import React, { Component, useState } from "react";
 import axios from 'axios';
+import '../assets/css/signup.css';
 
 export default function SignUp() {
   const [name, setName] = useState("");
@@ -67,29 +68,27 @@ axios.post('/admin/createAccount', {
                     </div>
                   </div>
                   <div className="row">
-                    <div className="col-md-6 mb-4">
-                      <h6 className="mb-2 pb-1">Select the role: </h6>
-                        <input className="form-check-input" type="radio"
-                        name="Role"
-                        value="Admin"
-                        onChange={(e) => setRole(e.target.value)}/>
-                        <label className="form-check-label" htmlFor="femaleGender">&nbsp;Admin &nbsp; &nbsp;</label>
-                        <input className="form-check-input" type="radio"
-                          name="Role"
-                          value="Staff"
-                          onChange={(e) => setRole(e.target.value)}/>
-                        <label className="form-check-label" htmlFor="femaleGender">&nbsp;Staff</label>
-                        <input className="form-check-input" type="radio"
-                          name="Role"
-                          value="QAM"
-                          onChange={(e) => setRole(e.target.value)}/>
-                        <label className="form-check-label" htmlFor="femaleGender">&nbsp;QAM</label>
-                        <input className="form-check-input" type="radio"
-                          name="Role"
-                          value="QAC"
-                          onChange={(e) => setRole(e.target.value)}/>
-                        <label className="form-check-label" htmlFor="femaleGender">&nbsp;QAC</label>
-                    </div>
+                  <div class="col-md-6 mb-4">
+  <h6 class="mb-2 pb-1">Select the role: </h6>
+  <div class="role-container">
+    <div class="role-row">
+      <input class="form-check-input" type="radio" name="Role" value="Admin" onChange={(e) => setRole(e.target.value)}/>
+      <label class="form-check-label role-label" htmlFor="femaleGender">Admin</label>
+    </div>
+    <div class="role-row">
+      <input class="form-check-input" type="radio" name="Role" value="Staff" onChange={(e) => setRole(e.target.value)}/>
+      <label class="form-check-label role-label" htmlFor="femaleGender">Staff</label>
+    </div>
+    <div class="role-row">
+      <input class="form-check-input" type="radio" name="Role" value="QAM" onChange={(e) => setRole(e.target.value)}/>
+      <label class="form-check-label role-label" htmlFor="femaleGender">QAM</label>
+    </div>
+    <div class="role-row">
+      <input class="form-check-input" type="radio" name="Role" value="QAC" onChange={(e) => setRole(e.target.value)}/>
+      <label class="form-check-label role-label" htmlFor="femaleGender">QAC</label>
+    </div>
+  </div>
+</div>
                       {role === "Staff" || role === "QAC"? (
                           <div className="mb-3">
                           <label>Department</label>
