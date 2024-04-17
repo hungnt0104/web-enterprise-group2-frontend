@@ -2,7 +2,7 @@
 /* eslint-disable no-lone-blocks */
 import React, { Component, useState } from "react";
 import axios from 'axios';
-import '../assets/css/signup.css';
+// import '../assets/css/signup.css';
 
 export default function SignUp() {
   const [name, setName] = useState("");
