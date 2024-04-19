@@ -42,10 +42,6 @@ export default function Profile() {
                     <span class="bg-secondary p-1 px-4 rounded text-white">{role}</span>
                     <h5 class="mt-2 mb-0">{name}</h5>
                     <span>{email}</span>
-                    
-                    
-                     
-                    
                     <div class="buttons">
                         
                         <button class="btn btn-outline-primary px-4">Logout</button>

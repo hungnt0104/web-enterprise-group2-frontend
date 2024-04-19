@@ -78,7 +78,7 @@ const GetOneArticle = () => {
 
     const fetchData = async (id) => {
         try {
-            const response = await axios.get(`/getArticles/${id}`);
+            const response = await axios.get(`http://localhost:5000/articles/getArticles/${id}`);
             setArticle(response.data);
         } catch (error) {
             console.error('Error fetching article:', error);

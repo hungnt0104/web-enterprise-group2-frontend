@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-lone-blocks */
-import React, { Component, useState } from "react";
+import React, { Component, useState, useEffect } from "react";
 import axios from 'axios';
 // import '../assets/css/signup.css';
 
@@ -12,6 +12,8 @@ export default function SignUp() {
   const [department, setDepartment] = useState("");
   const [secretKey, setSecretKey] = useState("");
 
+  const [dataList, setDataList] = useState([])
+
   const handleSubmit = (e) => {
     // if (userType == "Admin" && secretKey != "group2") {
     //   e.preventDefault();
@@ -20,6 +22,10 @@ export default function SignUp() {
     // else 
     {
       e.preventDefault();
+      if (password.length < 8) {
+        window.alert("Password must have at least 8 characters.");
+        return; // Exit the function if password is too short
+      }
 
       console.log(name, email, password, department);
     //   axios.defaults.baseURL = 'https://backend-test-ad5x.onrender.com';
@@ -39,7 +45,7 @@ axios.post('/admin/createAccount', {
       setDepartment(null);
       alert('Registration Successful');
     } else {
-      alert('Something went wrong');
+      alert('Email existed');
     }
   })
   .catch((error) => {
@@ -47,6 +53,19 @@ axios.post('/admin/createAccount', {
   });
     }
   };
+
+  const getFetchData = async()=>{
+    const data = await axios.get("http://localhost:5000/admin/faculty")
+    console.log(data)
+    if(data.data.success){
+      setDataList(data.data.data)
+      // alert(data.data.message)
+    }
+  }
+  
+  useEffect(()=>{
+    getFetchData()
+  }, [])
 
   return (
 
@@ -68,31 +87,46 @@ axios.post('/admin/createAccount', {
                     </div>
                   </div>
                   <div className="row">
-                  <div class="col-md-6 mb-4">
-  <h6 class="mb-2 pb-1">Select the role: </h6>
-  <div class="role-container">
-    <div class="role-row">
-      <input class="form-check-input" type="radio" name="Role" value="Admin" onChange={(e) => setRole(e.target.value)}/>
-      <label class="form-check-label role-label" htmlFor="femaleGender">Admin</label>
-    </div>
-    <div class="role-row">
-      <input class="form-check-input" type="radio" name="Role" value="Staff" onChange={(e) => setRole(e.target.value)}/>
-      <label class="form-check-label role-label" htmlFor="femaleGender">Staff</label>
-    </div>
-    <div class="role-row">
-      <input class="form-check-input" type="radio" name="Role" value="QAM" onChange={(e) => setRole(e.target.value)}/>
-      <label class="form-check-label role-label" htmlFor="femaleGender">QAM</label>
-    </div>
-    <div class="role-row">
-      <input class="form-check-input" type="radio" name="Role" value="QAC" onChange={(e) => setRole(e.target.value)}/>
-      <label class="form-check-label role-label" htmlFor="femaleGender">QAC</label>
-    </div>
-  </div>
-</div>
+                    <div className="col-md-6 mb-4">
+                      <h6 className="mb-2 pb-1">Select the role: </h6>
+                        <input className="form-check-input" type="radio"
+                        name="Role"
+                        value="Admin"
+                        onChange={(e) => setRole(e.target.value)}/>
+                        <label className="form-check-label" htmlFor="femaleGender">&nbsp;Admin &nbsp; &nbsp;</label>
+                        <input className="form-check-input" type="radio"
+                          name="Role"
+                          value="Staff"
+                          onChange={(e) => setRole(e.target.value)}/>
+                        <label className="form-check-label" htmlFor="femaleGender">&nbsp;Staff</label>
+                        <input className="form-check-input" type="radio"
+                          name="Role"
+                          value="QAM"
+                          onChange={(e) => setRole(e.target.value)}/>
+                        <label className="form-check-label" htmlFor="femaleGender">&nbsp;QAM</label>
+                        <input className="form-check-input" type="radio"
+                          name="Role"
+                          value="QAC"
+                          onChange={(e) => setRole(e.target.value)}/>
+                        <label className="form-check-label" htmlFor="femaleGender">&nbsp;QAC</label>
+                    </div>
                       {role === "Staff" || role === "QAC"? (
                           <div className="mb-3">
-                          <label>Department</label>
+                          <label>Faculty</label>
                           <select
+                            className="form-control"
+                            onChange={(e) => setDepartment(e.target.value)}
+                          >
+                            <option value="All">All Faculties</option>
+                            {dataList.map((el) => {
+                                return (
+                                    <option key={el._id} value={el.name}>
+                                    {el.name}
+                                  </option>
+                                );
+                            })}
+                          </select>
+                          {/* <select
                             className="form-control"
                             onChange={(e) => setDepartment(e.target.value)}
                           >
@@ -100,7 +134,7 @@ axios.post('/admin/createAccount', {
                             <option value="IT">IT</option>
                             <option value="Business">Business</option>
                             <option value="Design">Design</option>
-                          </select>
+                          </select> */}
                         </div>
                         ) : 
                         (
@@ -125,7 +159,7 @@ axios.post('/admin/createAccount', {
                     </div>
                   </div>
                   <div className="mt-4 pt-2">
-                    <button type="submit" className="btn btn-primary btn-lg gradient-custom">Submit</button>&nbsp;&nbsp;
+                    <button type="submit" className="btn btn-lg gradient-custom">Submit</button>&nbsp;&nbsp;
                     {/* <a href="/login" className="btn btn-warning btn-lg gradient-custom-2">Login Now</a> */}
                   </div>
                 </form>

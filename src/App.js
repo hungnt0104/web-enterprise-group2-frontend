@@ -24,6 +24,7 @@ import Comment from './pages/Comment';
 import HomePage from './pages/HomePage'
 
 import TokenExpirationChecker from './TokenExpirationChecker';
+import Statistics from './pages/Statistics';
 
 function App() {
   const isLoggedIn = window.localStorage.getItem("loggedIn")
@@ -56,15 +57,19 @@ function App() {
           <Route path="/signup" element={<SignUp />} />
           <Route 
             path="/manageaccount" 
-            element={role === "Admin" ? <ManageAccount /> : <Forbidden />} 
+            element={role === "admin" ? <ManageAccount /> : <Forbidden />} 
           />
           <Route 
             path="/createEvent" 
-            element={role === "Admin" ? <CreateEvent /> : <Forbidden />} 
+            element={role === "admin" ? <CreateEvent /> : <Forbidden />} 
           />
           <Route 
             path="/manageEvent" 
-            element={role === "Admin" ? <ManageEvent /> : <Forbidden />} 
+            element={role === "admin" ? <ManageEvent /> : <Forbidden />} 
+          />
+          <Route 
+            path="/statistics" 
+            element={role === "admin" ? <Statistics /> : <Forbidden />} 
           />
           <Route 
             path="/articleDetail/:id/comment" 

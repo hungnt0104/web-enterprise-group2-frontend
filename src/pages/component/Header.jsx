@@ -1,5 +1,6 @@
 import React from 'react';
 // import '../../../public/assets'
+import '../../assets/css/dashboard.css';
 import '../../assets/css/bootstrap.min.css';
 import '../../assets/css/owl.carousel.min.css';
 import '../../assets/css/ticker-style.css';
@@ -12,6 +13,7 @@ import '../../assets/css/themify-icons.css';
 import '../../assets/css/slick.css';
 import '../../assets/css/nice-select.css';
 import '../../assets/css/style.css';
+
 
 const Header = () => {
   return (
