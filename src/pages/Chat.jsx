@@ -1,3 +1,101 @@
+// import React, { useState, useEffect, useRef } from "react";
+// import socketIOClient from "socket.io-client";
+
+// const host = "http://localhost:5000";
+
+// function App() {
+//   const [mess, setMess] = useState([]);
+//   const [message, setMessage] = useState('');
+//   const [userId, setUserId] = useState(() => window.localStorage.getItem("userId") || null);
+//   const [error, setError] = useState(null);
+//   const [uploadStatus, setUploadStatus] = useState(null);
+
+//   const socketRef = useRef();
+
+//   useEffect(() => {
+//     socketRef.current = socketIOClient.connect(host)
+  
+//     socketRef.current.on('getId', data => {
+//       setUserId(data);
+//       localStorage.setItem("userId", data); // Save user ID to localStorage
+//     })
+
+//     socketRef.current.on('sendDataServer', dataGot => {
+//       setMess(oldMsgs => [...oldMsgs, dataGot.data])
+//     })
+
+//     return () => {
+//       socketRef.current.disconnect();
+//     };
+//   }, []);
+
+//   const sendMessage = () => {
+//     if(message.trim() !== '') {
+//       const msg = {
+//         content: message, 
+//         id: userId
+//       }
+//       socketRef.current.emit('sendDataClient', msg)
+//       setMessage('')
+//     }
+//   }
+
+//   const renderMess =  mess.map((m, index) => {
+//     const isOwnMessage = m.id === userId;
+
+//     return (
+//       <div 
+//         key={index} 
+//         style={{
+//           marginBottom: '10px',
+//           padding: '8px',
+//           borderRadius: '8px',
+//           maxWidth: '70%',
+//           backgroundColor: isOwnMessage ? '#DCF8C6' : '#E5E5EA',
+//           alignSelf: isOwnMessage ? 'flex-end' : 'flex-start'
+//         }}
+//       >
+//         {m.content}
+//       </div>
+//     );
+//   });
+
+//   return (
+//     <div className="container">
+//       <h2 className="label">Chat Application</h2>
+//       <div className="card">
+//         <div className="card-body">
+//           <div className="box-chat_message">
+//             {renderMess}
+//           </div>
+  
+//           <div className="send-box">
+//             <textarea 
+//               value={message}  
+//               onChange={(e) => setMessage(e.target.value)} 
+//               onKeyDown={(e) => {
+//                 if (e.key === 'Enter' && !e.shiftKey) {
+//                   e.preventDefault();
+//                   sendMessage();
+//                 }
+//               }}
+//               className="form-control" 
+//               placeholder="Enter your message..." 
+//             />
+//             <button onClick={sendMessage} className="btn btn-primary">
+//               Send
+//             </button>
+//           </div>
+//         </div>
+//       </div>
+//       {error && <p style={{ color: 'red' }}>{error}</p>}
+//       {uploadStatus && <p>{uploadStatus}</p>}
+//     </div>
+//   );
+// }
+
+// export default App;
+
 import React, { useState, useEffect, useRef } from "react";
 import socketIOClient from "socket.io-client";
 
