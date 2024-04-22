@@ -21,8 +21,8 @@ import GetOneArticle from './pages/GetOneArticle';
 //=======
 import CreateArticle from './pages/Article';
 import Comment from './pages/Comment';
-import HomePage from './pages/HomePage'
-
+import HomePage from './pages/HomePage';
+import Chat from './pages/Chat';
 import TokenExpirationChecker from './TokenExpirationChecker';
 import Statistics from './pages/Statistics';
 
@@ -53,6 +53,7 @@ function App() {
             path="/articleDetail/:id"
             element={isLoggedIn == "true" ? <GetOneArticle /> : <Login />}
           />
+          
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
           <Route 
@@ -71,6 +72,7 @@ function App() {
             path="/statistics" 
             element={role === "admin" ? <Statistics /> : <Forbidden />} 
           />
+          
           <Route 
             path="/articleDetail/:id/comment" 
             element={isLoggedIn == "true" ? <Comment /> : <Login />}
@@ -78,6 +80,10 @@ function App() {
           <Route 
             path="/event/:id/createArticle" 
             element={<CreateArticle />} 
+          />
+          <Route
+            path="/message"
+            element={isLoggedIn == "true" ? <Chat /> : <Login />}
           />
           <Route path="/forbidden" element={<Forbidden />} />
         </Routes>
