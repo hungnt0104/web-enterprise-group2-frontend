@@ -112,7 +112,7 @@ function App() {
 
   useEffect(() => {
     socketRef.current = socketIOClient.connect(host)
-  
+
     socketRef.current.on('getId', data => {
       setId(data);
       window.localStorage.setItem('userId', data); // Save id to localStorage
