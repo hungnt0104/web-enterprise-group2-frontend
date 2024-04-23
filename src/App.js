@@ -3,9 +3,9 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Navigate } from 'react-router-dom';
-// import './App.css';
-// import 'bootstrap/dist/css/bootstrap.min.css'
-// import { routes } from './routes/index'
+
+import io from 'socket.io-client';
+
 
 import axios from 'axios'
 import Login from './pages/Login';
@@ -13,18 +13,26 @@ import SignUp from './pages/Signup';
 import ManageAccount from './pages/ManageAccount';
 import CreateEvent from './pages/CreateEvent';
 
-//<<<<<<< HEAD
+
 import ManageEvent from './pages/ManageEvent';
 import GetArticle from './pages/GetArticle';
 import Profile from './pages/Profile';
 import GetOneArticle from './pages/GetOneArticle';
-//=======
+import UpdateArticle from './pages/UpdateArticle';
+
 import CreateArticle from './pages/Article';
 import Comment from './pages/Comment';
 import HomePage from './pages/HomePage';
-import Chat from './pages/Chat';
+
 import TokenExpirationChecker from './TokenExpirationChecker';
 import Statistics from './pages/Statistics';
+
+
+import Chatroom from './pages/Chatroom';
+import Chat from './pages/Chat';
+const socket = io.connect('http://localhost:5000');
+
+
 
 function App() {
   const isLoggedIn = window.localStorage.getItem("loggedIn")
@@ -54,6 +62,7 @@ function App() {
             element={isLoggedIn == "true" ? <GetOneArticle /> : <Login />}
           />
           
+          
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
           <Route 
@@ -81,10 +90,25 @@ function App() {
             path="/event/:id/createArticle" 
             element={<CreateArticle />} 
           />
+          
+          
+        
           <Route
-            path="/message"
-            element={isLoggedIn == "true" ? <Chat /> : <Login />}
+            path='/chatroom'
+            element={
+              <Chatroom               
+                socket={socket}
+              />}/>
+            <Route
+            path='/message'
+            element={<Chat socket={socket} />}
           />
+
+
+
+
+           <Route>           
+        </Route>
           <Route path="/forbidden" element={<Forbidden />} />
         </Routes>
       </TokenExpirationChecker>

@@ -1,3 +1,6 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable jsx-a11y/img-redundant-alt */
+/* eslint-disable no-unused-vars */
 
 
 
@@ -18,6 +21,7 @@ const GetOneArticle = () => {
     const [error, setError] = useState(null);
     const [comment, setComment] = useState('');
     const [isSelected, setIsSelected] = useState('');
+ 
 	// const [author, setAuthor] = useState('');
     const author = window.localStorage.getItem('name')
 	const location = useLocation();
@@ -124,6 +128,12 @@ const GetOneArticle = () => {
             setError('Error downloading files as zip. Please try again later.');
         }
     };
+
+
+    
+
+
+
 
     if (!article) {
         return <div>Loading...</div>;
@@ -247,7 +257,10 @@ const GetOneArticle = () => {
                   </div>
                 </form>
                 <button  onClick={handleDownloadAsZip} type="submit" className="button button-contactForm btn_1 boxed-btn">Download ZIP</button>
+    
                   &nbsp;&nbsp;&nbsp;
+                  {/* <button onClick={handleUpdateArticle} className="button button-contactForm btn_1 boxed-btn">Update Article</button>
+    &nbsp;&nbsp;&nbsp; */}
                   {!article.isSelected ? (
                     <button onClick={handleSelect} type="submit" className="button button-contactForm btn_1 boxed-btn">Approve</button>
                   ) : (
