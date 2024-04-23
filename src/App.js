@@ -3,6 +3,9 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Navigate } from 'react-router-dom';
+import { useParams} from 'react-router-dom';
+import { useEffect } from 'react';
+import { useState } from 'react';
 
 import io from 'socket.io-client';
 
@@ -30,12 +33,11 @@ import Statistics from './pages/Statistics';
 import GetEvent from './pages/GetEvent'
 import EventDetail from './pages/EventDetail'
 
-axios.defaults.baseURL = 'http://localhost:5000';
-
-
 import Chatroom from './pages/Chatroom';
 import Chat from './pages/Chat';
 const socket = io.connect('http://localhost:5000');
+
+axios.defaults.baseURL = 'http://localhost:5000';
 
 
 
