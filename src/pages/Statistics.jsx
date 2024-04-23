@@ -4,12 +4,12 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios'
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Bar, BarChart } from 'recharts';
+import SidebarAdmin from './component/SidebarAdmin';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Bar, BarChart, Pie, PieChart, Cell } from 'recharts';
 // import 'node_modules/bootstrap/dist/css/bootstrap.min.css'
 // import '../ProductStyle.css'
 
 // axios.defaults.baseURL = 'https://backend-test-ad5x.onrender.com/admin';
-axios.defaults.baseURL = 'http://localhost:5000/admin'
 
 const Statistics = () =>{
   //giup bat tat add section
@@ -21,6 +21,11 @@ const [totalContributors, setContributors] = useState("")
 const [totalFaculty, setTotalFaculty] = useState("")
 const [totalUsers, setTotalUsers] = useState("")
 
+const [facultyList, setFacultyList] = useState([])
+const [departmentCounts, setDepartmentCounts] = useState([])
+const [articlesByMonth, setArticlesByMonth] = useState([])
+const [contributorsPerFaculty, setContributorsPerFaculty] = useState([])
+
 
 //giup lay du lieu tu backend
 const [dataList, setDataList] = useState([])
@@ -28,13 +33,23 @@ const [dataList, setDataList] = useState([])
 useEffect(() => {
     const fetchStatistics = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/articles/getStatistics');
-        const { totalArticles, totalContributors, totalFaculties, totalUsers } = response.data;
+        const faculty = await axios.get("/admin/faculty")
+        setFacultyList(faculty.data.data)
+        // console.log(facultyList)
+
+        const response = await axios.get('/articles/getStatistics');
+        const { totalArticles, totalContributors, totalFaculties, totalUsers, departmentCounts, articlesByMonth, contributorsPerFaculty } = response.data;
+
         // console.log(totalArticles)
         setTotalArticles(totalArticles);
         setContributors(totalContributors);
         setTotalFaculty(totalFaculties);
         setTotalUsers(totalUsers);
+        setDepartmentCounts(departmentCounts);
+        setArticlesByMonth(articlesByMonth);
+        setContributorsPerFaculty(contributorsPerFaculty)
+
+        // console.log(contributorsPerFaculty)
       } catch (error) {
         console.error('Error fetching statistics:', error);
       }
@@ -44,96 +59,65 @@ useEffect(() => {
   }, []);
 
 
-
-//fetch data from db, display all data
-// const getFetchData = async()=>{
-//   const data = await axios.get("http://localhost:5000/articles/getStatistics")
-//   console.log(data)
-//   if(data.statusText === 'OK'){
-//     setDataList(data.data)
-//     // alert(data.data.message)
-//   }
-// }
-
-// useEffect(()=>{
-//   getFetchData()
-// }, [])
-
-
 const logOut = () => {
     window.localStorage.clear();
     window.location.href = "./login";
   };
 
 
-const data = [
-  {      name: 'Jan',      accounts: 40,      articles: 24,      amt: 24,    },
-  {
-    name: 'Feb',
-    accounts: 30,
-    articles: 13,
-    amt: 22,
-  },
-  {
-    name: 'Mar',
-    accounts: 20,
-    articles: 98,
-    amt: 22,
-  },
-  {
-    name: 'Apr',
-    accounts: 27,
-    articles: 39,
-    amt: 20,
-  },
-  {
-    name: 'May',
-    accounts: 18,
-    articles: 48,
-    amt: 21,
-  },
-  {
-    name: 'Jun',
-    accounts: 23,
-    articles: 38,
-    amt: 25,
-  },
-  {
-    name: 'Jul',
-    accounts: 34,
-    articles: 43,
-    amt: 21,
-  },
-];
+  const adjustColorBrightness = (hex, percent) => {
+    let color = hex;
 
-const data1 = [
-  {
-    name: 'IT',
-    uv: 4000,
-    Contribution: 2400,
-    amt: 2400,
-  },
-  {
-    name: 'BUSINESS',
-    uv: 3000,
-    Contribution: 1398,
-    amt: 2210,
-  },
-  {
-    name: 'DESIGN',
-    uv: 2000,
-    Contribution: 9800,
-    amt: 2290,
-  },
-];
+    // Convert hex to RGB
+    let r = parseInt(color.slice(1, 3), 16);
+    let g = parseInt(color.slice(3, 5), 16);
+    let b = parseInt(color.slice(5, 7), 16);
 
+    // Adjust brightness
+    r = Math.round(r * (100 + percent) / 100);
+    g = Math.round(g * (100 + percent) / 100);
+    b = Math.round(b * (100 + percent) / 100);
+
+    // Ensure RGB values stay within bounds
+    r = Math.min(r, 255);
+    g = Math.min(g, 255);
+    b = Math.min(b, 255);
+
+    // Convert RGB to hex
+    color = '#' + (r << 16 | g << 8 | b).toString(16).padStart(6, '0');
+
+    return color;
+};
+
+const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+const data = articlesByMonth.map(entry => ({
+  name: entry._id === null ? 'Unknown' : monthNames[entry.month - 1], // Convert numeric month to text
+  accounts: entry.contributors,
+  articles: entry.count, // Assuming some calculation for articles
+}));
+
+// console.log(data);
+
+// Map over departmentCounts and transform it into the format expected by the barchart component
+const transformedData = departmentCounts.map(department => ({
+  name: department._id || 'Unknown', // Use 'Unknown' if department name is null or empty
+  value: department.count, 
+}));
+
+const transformedData2 = contributorsPerFaculty.map(department => ({
+  name: department.department || 'Unknown', // Use 'Unknown' if department name is null or empty
+  value: department.numberOfAuthors, 
+}));
+
+console.log(transformedData, transformedData2)
 
 return(
 <body class="g-sidenav-show bg-gray-200">
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css"/>
     <link href="https://cdn.jsdelivr.net/npm/@icon/themify-icons@1.0.1-alpha.3/themify-icons.min.css" rel="stylesheet"/>
-
-    <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 bg-gradient-dark" id="sidenav-main">
+<SidebarAdmin/>
+    {/* <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 bg-gradient-dark" id="sidenav-main">
       <div class="sidenav-header">
         <a class="navbar-brand m-0" href="https://demos.creative-tim.com/material-dashboard/pages/dashboard" target="_blank">
          
@@ -196,7 +180,7 @@ return(
           </li>
         </ul>
       </div>
-    </aside>
+    </aside> */}
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
       <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" data-scroll="true">
         <div class="container-fluid py-1 px-3">
@@ -304,7 +288,7 @@ return(
               <BarChart
                 width={300}
                 height={300}
-                data={data1}
+                data={transformedData}
                 margin={{
                   top: 5,
                   right: 30,
@@ -314,79 +298,67 @@ return(
                 barSize={20}
                 barCategoryGap={5}
               >
+                <text x="50%" y="30" textAnchor="middle" fontWeight="bold" fontSize={16}>Contributions per faculty</text>
                 <XAxis dataKey="name" scale="point" padding={{ left: 50, right: 50 }} />
                 <YAxis />
                 <Tooltip />
-                <Legend />
+                {/* <Legend /> */}
                 <CartesianGrid strokeDasharray="3 3" />
-                <Bar dataKey="Contribution" fill="#8884d8"  />
+                <Bar dataKey="value" fill="#8884d8"  />
               </BarChart>
             </ResponsiveContainer>
             </div>
-          {/* <div className="chart-container"> */}
-    {/* <ResponsiveContainer width="100%" height={400}>
-      <LineChart
-        data={data}
-        margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-      >
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="name" />
-        <YAxis />
-        <Tooltip />
-        <Legend />
-        <Line type="monotone" dataKey="articles" stroke="#8884d8" activeDot={{ r: 8 }} />
-        <Line type="monotone" dataKey="accounts" stroke="#82ca9d" />
-      </LineChart>
-    </ResponsiveContainer> */}
-  {/* </div> */}
-            {/* <div class="col-12">
-              <div class="card my-4">
-                
-                <div class="card-body px-0 pb-2 pt-0">
-                  <div class="table-responsive p-0">
-                    <table class="table align-items-center mb-0">
-                      <thead>
-                        <tr>
-                          <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Account</th>
-                          <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">Role</th>
-                          <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 pl-4">Department</th>
-                          <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {dataList.map((el) => (
-                          <tr key={el._id}>
-                            <td>
-                              <div class="d-flex px-2 py-1">
-                                <div class="d-flex flex-column justify-content-center">
-                                  <h6 class="mb-0 text-sm">{el.name}</h6>
-                                  <p class="text-xs text-secondary mb-0">{el.email}</p>
-                                </div>
-                              </div>
-                            </td>
-                            <td>
-                              <p class="text-xs font-weight-bold mb-0">{el.role}</p>
-                              
-                            </td>
-                            <td>
-                            <p class="text-xs font-weight-bold mb-0 pl-3">{el.department}</p>
-                            </td>
-                            <td class="align-middle">
-                              <a href="#" class="text-secondary font-weight-bold text-xs pl-1" data-toggle="tooltip" data-original-title="Edit user">
-                                Edit
-                              </a>
-                              <a href="#"class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                                | Delete
-                              </a>
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-            </div> */}
+          </div>
+          <div class="row">
+          <div className="chart-container">
+          <ResponsiveContainer width="100%" height={300}>
+            <PieChart>
+              <Pie
+                dataKey="value"
+                data={transformedData}
+                cx="50%"
+                cy="50%"
+                outerRadius={100}
+                label={({ name, percent }) => `${name} (${(percent * 100).toFixed(2)}%)`}
+              >
+                {
+                  transformedData.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={adjustColorBrightness('#8884d8', index * 20)} />
+                    // Adjust brightness based on index, change 20 to control the darkness or lightness
+                  ))
+                }
+              </Pie>
+              <Tooltip />
+              <Legend />
+            </PieChart>
+          </ResponsiveContainer>
+          
+            </div>
+            <div className="chart-container">
+            <ResponsiveContainer width="100%"  >
+              <BarChart
+                width={300}
+                height={300}
+                data={transformedData2}
+                margin={{
+                  top: 5,
+                  right: 30,
+                  left: 20,
+                  bottom: 5,
+                }}
+                barSize={20}
+                barCategoryGap={5}
+              >
+                <text x="50%" y="30" textAnchor="middle" fontWeight="bold" fontSize={16}>Contributors per faculty</text>
+                <XAxis dataKey="name" scale="point" padding={{ left: 50, right: 50 }} />
+                <YAxis />
+                <Tooltip />
+                {/* <Legend /> */}
+                <CartesianGrid strokeDasharray="3 3" />
+                <Bar dataKey="value" fill="#8884d8"  />
+              </BarChart>
+            </ResponsiveContainer>
+            </div>
           </div>
         </div>
       </div>

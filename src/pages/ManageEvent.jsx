@@ -4,11 +4,12 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios'
+import SidebarAdmin from './component/SidebarAdmin';
 // import 'node_modules/bootstrap/dist/css/bootstrap.min.css'
 // import '../ProductStyle.css'
 
 // axios.defaults.baseURL = 'https://backend-test-ad5x.onrender.com/admin';
-axios.defaults.baseURL = 'http://localhost:5000/admin'
+// axios.defaults.baseURL = 'http://localhost:5000/admin'
 
 const ManageEvent = () =>{
   //giup bat tat add section
@@ -24,6 +25,7 @@ const[formData, setFormData] = useState({
   description: "",
   status: "",
   department: "",
+  startDate: "",
   firstDeadline: ""
 })
 const[formDataEdit, setFormDataEdit] = useState({
@@ -32,6 +34,7 @@ const[formDataEdit, setFormDataEdit] = useState({
   description: "",
   status: "",
   department: "",
+  startDate: "",
   firstDeadline: ""
 })
 
@@ -50,7 +53,7 @@ const handleOnChange = (e)=>{ //e: event triggered. Trong truong hop nay la khi 
 
 //fetch data from db, display all data
 const getFetchData = async()=>{
-  const data = await axios.get("http://localhost:5000/admin/events")
+  const data = await axios.get("/admin/events")
   console.log(data.statusText)
   if(data.statusText === 'OK'){
     setDataList(data.data)
@@ -64,7 +67,7 @@ useEffect(()=>{
 
 //delete
 const handleDelete = async(id)=>{
-  const data = await axios.delete("http://localhost:5000/admin/deleteEvent/"+id)
+  const data = await axios.delete("/admin/deleteEvent/"+id)
 //   console.log(data)
   if (data.statusText === 'OK')
   {
@@ -77,11 +80,12 @@ const handleDelete = async(id)=>{
 const handleUpdate = async(e, id)=>{
   e.preventDefault()
 
-  const data = await axios.put("http://localhost:5000/admin/updateEvent/"+id, formDataEdit)
-  if (data.data.success)
+  const data = await axios.put("/admin/updateEvent/"+id, formDataEdit)
+  // console.log(data)
+  if (data.statusText == "OK")
   {
     getFetchData()
-    alert(data.data.message)
+    alert("Updated successfully")
     setEditSection(false)
   }
 }
@@ -252,75 +256,14 @@ const logOut = () => {
 // }
 
 // export default ManageEvent
+
+
 return(
   <body class="g-sidenav-show bg-gray-200">
         <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css"/>
         <link href="https://cdn.jsdelivr.net/npm/@icon/themify-icons@1.0.1-alpha.3/themify-icons.min.css" rel="stylesheet"/>
   
-        <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 bg-gradient-dark" id="sidenav-main">
-          <div class="sidenav-header">
-            <a class="navbar-brand m-0" href="https://demos.creative-tim.com/material-dashboard/pages/dashboard" target="_blank">
-             
-              <span class="ms-1 font-weight-bold text-white pl-40 fs-24">Uni Magazine</span>
-            </a>
-          </div>
-          <hr class="horizontal light mt-0 mb-2" />
-          <div class="collapse navbar-collapse w-auto " id="sidenav-collapse-main">
-            <ul class="navbar-nav">
-              <li class="nav-item">
-                <a class="nav-link text-white " href="../pages/dashboard.html">
-                  <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                    <i class="ti ti-harddrives opacity-10"></i>
-                  </div>
-                  <span class="nav-link-text ms-1">Manage Account</span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link text-white " href="../pages/tables.html">
-                  <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                    <i class="ti ti-write opacity-10"></i>
-                  </div>
-                  <span class="nav-link-text ms-1">Manage Articles</span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link text-white " href="../pages/tables.html">
-                  <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                    <i class="ti ti-agenda opacity-10"></i>
-                  </div>
-                  <span class="nav-link-text ms-1">Manage Event</span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link text-white " href="../pages/billing.html">
-                  <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                    <i class="ti ti-comment-alt opacity-10"></i>
-                  </div>
-                  <span class="nav-link-text ms-1">Chat bot</span>
-                </a>
-              </li>
-              <li class="nav-item mt-3">
-                <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Account pages</h6>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link text-white " href="../pages/profile.html">
-                  <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                    <i class="ti ti-user opacity-10"></i>
-                  </div>
-                  <span class="nav-link-text ms-1">Profile</span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link text-white " href="../pages/sign-up.html">
-                  <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                    <i class="ti ti-plus opacity-10"></i>
-                  </div>
-                  <span class="nav-link-text ms-1">Add</span>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </aside>
+        <SidebarAdmin/>
         <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
           <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" data-scroll="true">
             <div class="container-fluid py-1 px-3">
@@ -334,8 +277,8 @@ return(
               <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
                 <div class="ms-md-auto pe-md-3 d-flex align-items-center">
                   <div class="input-group input-group-outline">
-                    <label class="form-label">Type here...</label>
-                    <input type="text" class="form-control" />
+                    {/* <label class="form-label">Type here...</label>
+                    <input type="text" class="form-control" /> */}
                   </div>
                 </div>
                 <ul class="navbar-nav  justify-content-end">
@@ -354,7 +297,7 @@ return(
               <div class="row">
               <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
                 <div class="card">
-                  <div class="card-header p-3 pt-2">
+                  {/* <div class="card-header p-3 pt-2">
                     <div class="icon icon-lg icon-shape bg-gradient-dark shadow-dark text-center border-radius-xl mt-n4 position-absolute">
                       <i class="ti ti-book opacity-10"></i>
                     </div>
@@ -362,10 +305,69 @@ return(
                       <p class="text-sm mb-0 text-capitalize">Total Articles</p>
                       <h4 class="mb-0">169</h4>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>  
+            {
+        addSection && ( //neu addSection la true thi moi hien thi form
+        <div className='addContainer'>
+          <div className='addContainer'>
+
+</div>
+        </div>
+        )
+      }
+      {
+        editSection &&(
+          <div className='addContainer'>
+          <form onSubmit={(e) => handleUpdate(e, formDataEdit._id)} className="container">
+  <button className='close-btn btn btn-outline-danger mt-3' onClick={() => setEditSection(false)}>X</button>
+
+  <div className="form-group">
+    
+    <label htmlFor='name'>Name:</label>
+    <input type="text" className="form-control" id='name' name='name' onChange={handleEditOnChange} value={formDataEdit.name} required/>
+  </div>
+
+  <div className="form-group">
+    <label htmlFor='email'>Description:</label>
+    <input type="text" className="form-control" id='description' name='description' onChange={handleEditOnChange} value={formDataEdit.description} />
+  </div>
+
+  <div className="row">
+                    <div className="col-md-12 mb-4 pb-2">
+                      <div className="form-outline">
+                        <label className="form-label" htmlFor="emailAddress">Start Date</label>
+                        {/* <input type="email" id="emailAddress" className="form-control form-control-lg" onChange={(e) => setEmail(e.target.value)}/> */}
+                        <input 
+                            name = "startDate"
+                           type="datetime-local" id="datetime"  className="form-control form-control-lg" onChange={handleEditOnChange} value={formDataEdit.startDate} required/>
+
+                      </div>
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="col-md-12 mb-4 pb-2">
+                      <div className="form-outline">
+                        <label className="form-label" htmlFor="emailAddress">First Deadline</label>
+                        {/* <input type="email" id="emailAddress" className="form-control form-control-lg" onChange={(e) => setEmail(e.target.value)}/> */}
+                        <input 
+                        name = "firstDeadline"
+                           type="datetime-local" id="datetime"  className="form-control form-control-lg" onChange={handleEditOnChange} value={formDataEdit.firstDeadline} required/>
+
+                      </div>
+                    </div>
+                  </div>
+
+
+
+  <button className='btn btn-primary' >Submit</button>
+</form>
+
+        </div>
+        )
+      }
               <div class="row">
                 <div class="col-12">
                   <div class="card my-4">            
@@ -375,11 +377,11 @@ return(
                           <thead>
                             <tr>
                               <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 pl-5">Name</th>
-                              <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 pl-3">Status</th>
-                              <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">Department</th>
+                              {/* <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 pl-3">Status</th> */}
+                              <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 pl-5">Start Date</th>
                               <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 pl-5">First Deadline</th>
                               <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 pl-5">Final Deadline</th>
-                              <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action Deadline</th>
+                              <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Actions</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -392,20 +394,23 @@ return(
                                     </div>
                                   </div>
                                 </td>
-                                <td>
+                                {/* <td>
                                   <p class="text-xs font-weight-bold mb-0">{el.status}</p>
                                   
-                                </td>
+                                </td> */}
                                 <td>
-                                <p class="text-xs font-weight-bold mb-0 pl-4">{el.department}</p>
+                                <p class="text-xs font-weight-bold mb-0 pl-4">{el.startDate}</p>
                                 </td>
                                 <td><p class="text-xs font-weight-bold mb-0 ">{el.closureDates.firstDeadline}</p></td>
                                 <td><p class="text-xs font-weight-bold mb-0 ">{el.closureDates.finalClosureDate}</p></td>
                                 <td class="align-middle">
-                                  <a href="#" class="text-secondary font-weight-bold text-xs pl-3" data-toggle="tooltip" data-original-title="Edit user">
-                                    Edit
+                                 <a href="/eventDetail" class="text-secondary font-weight-bold text-xs pl-3" data-toggle="tooltip" data-original-title="Edit user"  onClick={() => handleEdit(el)}>
+                                    Detail
                                   </a>
-                                  <a href="#"class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                                  <a href="#" class="text-secondary font-weight-bold text-xs pl-3" data-toggle="tooltip" data-original-title="Edit user"  onClick={() => handleEdit(el)}>
+                                    | Edit
+                                  </a>
+                                  <a href="#"class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user" onClick={() => handleDelete(el._id)}>
                                     | Delete
                                   </a>
                                 </td>

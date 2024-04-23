@@ -3,7 +3,7 @@
 /* eslint-disable no-unused-vars */
 
 
-
+import Header from './component/Header';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link, useParams } from 'react-router-dom';
@@ -11,9 +11,9 @@ import {  useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import JSZip from 'jszip';
 import { saveAs } from 'file-saver';
-import Header from './component/Header';
 
-axios.defaults.baseURL = 'http://localhost:5000/articles';
+
+// axios.defaults.baseURL = 'http://localhost:5000/articles';
 
 const GetOneArticle = () => {
     const { id } = useParams();
@@ -25,13 +25,13 @@ const GetOneArticle = () => {
 	// const [author, setAuthor] = useState('');
     const author = window.localStorage.getItem('name')
 	const location = useLocation();
-    const articleId = location.pathname.split('/')[2];
+    const articleId = location.pathname.split('/')[1];
 
     const handleSelect = async (e) => {
       e.preventDefault();
       
       try {
-          const response = await axios.post(`http://localhost:5000/articles/setIsSelected/${articleId}`);
+          const response = await axios.post(`/articles/setIsSelected/${articleId}`);
           console.log(response.data); // Log success message
     window.alert('You have approved this article successfully!'); // Show success message
     window.location.reload();
@@ -45,7 +45,7 @@ const GetOneArticle = () => {
       e.preventDefault();
       
       try {
-          const response = await axios.post(`http://localhost:5000/articles/setIsSelectedToFalse/${articleId}`);
+          const response = await axios.post(`/articles/setIsSelectedToFalse/${articleId}`);
           console.log(response.data); // Log success message
     window.alert('You have disapproved this article successfully!'); // Show success message
     window.location.reload();
@@ -61,7 +61,7 @@ const GetOneArticle = () => {
         
         try {
 			// console.log(articleId)
-            const response = await axios.post(`http://localhost:5000/articles/commentArticle/${articleId}`, {
+            const response = await axios.post(`/articles/commentArticle/${articleId}`, {
                 comment, author
             });
             console.log(response.data); // Log success message
@@ -77,12 +77,12 @@ const GetOneArticle = () => {
 
 
     useEffect(() => {
-        fetchData(id);
-    }, [id]);
+        fetchData();
+    }, []);
 
-    const fetchData = async (id) => {
+    const fetchData = async (e) => {
         try {
-            const response = await axios.get(`http://localhost:5000/articles/getArticles/${id}`);
+            const response = await axios.get(`/articles/getArticles/${articleId}`);
             setArticle(response.data);
         } catch (error) {
             console.error('Error fetching article:', error);
@@ -129,23 +129,17 @@ const GetOneArticle = () => {
         }
     };
 
-
-    
-
-
-
-
-    if (!article) {
-        return <div>Loading...</div>;
-    }
+    // if (!article) {
+    //     return <div>Loading...</div>;
+    // }
 
     return (
+      article &&
       <div>
       <Header/>
         <div className='container'>
             <main>
                 
-      {/* Blog Area */}
       <section className="blog_area single-post-area section-padding">
         <div className="container">
           <div className="row">
@@ -172,7 +166,7 @@ const GetOneArticle = () => {
               <div className="navigation-top">
                 <div className="d-sm-flex justify-content-between text-center">
                   <div className="col-sm-4 text-center my-2 my-sm-0">
-                    {/* Comment count */}
+
                   </div>
                   <ul className="social-icons">
                     <li><a href="#"><i className="fab fa-facebook-f"></i></a></li>
@@ -193,7 +187,6 @@ const GetOneArticle = () => {
                       </div>
                     </div>
                     <div className="col-lg-6 col-md-6 col-12 nav-right flex-row d-flex justify-content-end align-items-center">
-                      {/* Right navigation */}
                     </div>
                   </div>
                 </div>
@@ -213,10 +206,10 @@ const GetOneArticle = () => {
                 <h4>{article.comments.length} Comments</h4>
                 <div className="comment-list">
  {article.comments.map((comment, index) => (
-  <div key={index} className="single-comment justify-content-between d-flex">
+  <div key={index} className="single-comment justify-content-between d-flex" style={{ marginBottom: '20px' }}>
     <div className="user justify-content-between d-flex">
       <div className="thumb">
-        <img src="assets/img/comment/comment_3.png" alt="" />
+        <img src="https://www.svgrepo.com/show/452030/avatar-default.svg" alt="" />
       </div>
       <div className="desc">
         <p className="comment">
@@ -232,6 +225,7 @@ const GetOneArticle = () => {
         </div>
       </div>
     </div>
+    <br />
   </div>
 ))}
 </div>
@@ -266,7 +260,7 @@ const GetOneArticle = () => {
                   ) : (
                     <button onClick={handleDisSelect} type="submit" className="button button-contactForm btn_1 boxed-btn">Disapprove</button>
                   )}
-                  {/* <button onClick={handleSelect} type="submit" className="button button-contactForm btn_1 boxed-btn">Approve</button> */}
+                  
               </div>
             </div>
             <div className="col-lg-4">
@@ -287,81 +281,20 @@ const GetOneArticle = () => {
                 <aside className="single_sidebar_widget post_category_widget">
                 <h4 className="widget_title">Attachment</h4>
                 <ul className=" cat-list">
-                  {/* <li>
-                    <a href="#" className="d-flex"> */}
                       {article.pdfs.map((pdf, index) => (
                                     <li key={index}><a href={`http://localhost:5000/pdfs/${pdf}`} target="_blank" rel="noopener noreferrer"><p>PDF {index + 1}</p></a></li>
                                 ))}
                       {article.docs.map((doc, index) => (
                                     <li key={index}><a href={`http://localhost:5000/docs/${doc}`} target="_blank" rel="noopener noreferrer"><p>Doc {index + 1}</p></a></li>
                                 ))}
-                    {/* </a>
-                  </li> */}
-                  {/* Other list items */}
                 </ul>
               </aside>
-                {/* Other widgets */}
               </div>
             </div>
           </div>
         </div>
       </section>
-      {/* Blog Area end */}
     </main>
-            {/* <br /><br />
-            <section className="ftco-section">
-                <div className="container">
-                    <div className="row justify-content-center">
-                        <div className="col-md-6 text-center mb-5">
-                            <h2 className="heading-section">Article Detail</h2>
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="col-md-6">
-                            <div>
-                                <h4>Title: {article.title}</h4>
-                                <p>Content: {article.content}</p>
-                            </div>
-                            <div>
-                                <h4>Images:</h4>
-                                {article.images.map((image, index) => (
-                                    <img key={index} src={`http://localhost:5000/images/${image}`} alt={`Image ${index}`} style={{ width: '100%', height: 'auto', marginBottom: '10px' }} />
-                                ))}
-                            </div>
-                        </div>
-                        <div className="col-md-3">
-                            <h4>PDFs:</h4>
-                            <ul>
-                                {article.pdfs.map((pdf, index) => (
-                                    <li key={index}><a href={`http://localhost:5000/pdfs/${pdf}`} target="_blank" rel="noopener noreferrer">PDF {index + 1}</a></li>
-                                ))}
-                            </ul>
-                        </div>
-                        <div className="col-md-3">
-                            <h4>Docs:</h4>
-                            <ul>
-                                {article.docs.map((doc, index) => (
-                                    <li key={index}><a href={`http://localhost:5000/docs/${doc}`} target="_blank" rel="noopener noreferrer">Doc {index + 1}</a></li>
-                                ))}
-                            </ul>
-                        </div>
-                        <div className="col-md-3">
-                            <h4>Comments:</h4>
-                            <ul>
-                                {article.comments.map((comment, index) => (
-                                    <li key={index}>{comment}</li>
-                                ))}
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            {error && <div className="alert alert-danger" role="alert">{error}</div>}
-            <div className="row justify-content-center">
-                <button onClick={handleDownloadAsZip} className="btn btn-secondary">Download All Files as ZIP</button>
-                <button onClick={handleCommentButtonClick} className="btn btn-primary">Comment</button>
-            </div>
-            <br /><br /> */}
         </div>
         </div>
     );

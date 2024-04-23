@@ -21,7 +21,7 @@ export default function Profile() {
         
         try {
 			// console.log(articleId)
-            const response = await axios.post(`http://localhost:5000/articles/commentArticle/${articleId}`, {
+            const response = await axios.post(`/articles/commentArticle/${articleId}`, {
                 comment, author
             });
             console.log(response.data); // Log success message

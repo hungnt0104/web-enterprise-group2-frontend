@@ -1,18 +1,5 @@
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 import React, { Component, useState } from "react";
 import axios from 'axios';
 import { useEffect } from 'react';
@@ -24,6 +11,11 @@ export default function Profile() {
     const role =  window.localStorage.getItem('role');
     const email = window.localStorage.getItem('email');
     const name =  window.localStorage.getItem('name');
+
+    const logOut = () => {
+        window.localStorage.clear();
+        window.location.href = "/login";
+      };
 
   return (
 <div class="container mt-5">
@@ -44,9 +36,9 @@ export default function Profile() {
                     <span>{email}</span>
                     <div class="buttons">
                         
-                        <button class="btn btn-outline-primary px-4">Logout</button>
+                        <button onClick={logOut} class="btn px-4">Logout</button>
                         <Link to="/menu">
-                        <button class="btn btn-primary px-4 ms-3">Menu</button>
+                        <button class="btn px-4 ms-3">Menu</button>
                         </Link>
                     </div>
                     

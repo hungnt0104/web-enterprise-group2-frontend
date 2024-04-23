@@ -4,12 +4,14 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios'
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Bar, BarChart } from 'recharts';
+import SidebarAdmin from './component/SidebarAdmin';
+import NavbarAdmin from './component/NavbarAdmin';
+import SubNavbarAdmin from './component/SubNavbarAdmin';
 // import 'node_modules/bootstrap/dist/css/bootstrap.min.css'
 // import '../ProductStyle.css'
 
 // axios.defaults.baseURL = 'https://backend-test-ad5x.onrender.com/admin';
-axios.defaults.baseURL = 'http://localhost:5000/admin'
+// axios.defaults.baseURL = 'http://localhost:5000/admin'
 
 const ManageAccount = () =>{
   //giup bat tat add section
@@ -49,7 +51,7 @@ const handleOnChange = (e)=>{ //e: event triggered. Trong truong hop nay la khi 
 
 //fetch data from db, display all data
 const getFetchData = async()=>{
-  const data = await axios.get("http://localhost:5000/admin/")
+  const data = await axios.get("/admin/")
   console.log(data)
   if(data.data.success){
     setDataList(data.data.data)
@@ -63,11 +65,13 @@ useEffect(()=>{
 
 //delete
 const handleDelete = async(id)=>{
-  const data = await axios.delete("http://localhost:5000/admin/deleteAccount/"+id)
+  const data = await axios.delete("/admin/deleteAccount/"+id)
   if (data.data.success)
   {
+    
     getFetchData()
     alert(data.data.message)
+    window.location.reload();
   }
 }
 
@@ -75,7 +79,7 @@ const handleDelete = async(id)=>{
 const handleUpdate = async(e, id)=>{
   e.preventDefault()
 
-  const data = await axios.put("http://localhost:5000/admin/updateAccount/"+id, formDataEdit)
+  const data = await axios.put("admin/updateAccount/"+id, formDataEdit)
   if (data.data.success)
   {
     getFetchData()
@@ -229,139 +233,14 @@ const logOut = () => {
 
 // export default ManageAccount
 
-const data = [
-  {      name: 'Jan',      accounts: 40,      articles: 24,      amt: 24,    },
-  {
-    name: 'Feb',
-    accounts: 30,
-    articles: 13,
-    amt: 22,
-  },
-  {
-    name: 'Mar',
-    accounts: 20,
-    articles: 98,
-    amt: 22,
-  },
-  {
-    name: 'Apr',
-    accounts: 27,
-    articles: 39,
-    amt: 20,
-  },
-  {
-    name: 'May',
-    accounts: 18,
-    articles: 48,
-    amt: 21,
-  },
-  {
-    name: 'Jun',
-    accounts: 23,
-    articles: 38,
-    amt: 25,
-  },
-  {
-    name: 'Jul',
-    accounts: 34,
-    articles: 43,
-    amt: 21,
-  },
-];
-
-const data1 = [
-  {
-    name: 'IT',
-    uv: 4000,
-    Contribution: 2400,
-    amt: 2400,
-  },
-  {
-    name: 'BUSINESS',
-    uv: 3000,
-    Contribution: 1398,
-    amt: 2210,
-  },
-  {
-    name: 'DESIGN',
-    uv: 2000,
-    Contribution: 9800,
-    amt: 2290,
-  },
-];
-
 
 return(
 <body class="g-sidenav-show bg-gray-200">
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css"/>
     <link href="https://cdn.jsdelivr.net/npm/@icon/themify-icons@1.0.1-alpha.3/themify-icons.min.css" rel="stylesheet"/>
-
-    <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 bg-gradient-dark" id="sidenav-main">
-      <div class="sidenav-header">
-        <a class="navbar-brand m-0" href="https://demos.creative-tim.com/material-dashboard/pages/dashboard" target="_blank">
-         
-          <span class="ms-1 font-weight-bold text-white pl-40 fs-24">Uni Magazine</span>
-        </a>
-      </div>
-      <hr class="horizontal light mt-0 mb-2" />
-      <div class="collapse navbar-collapse w-auto " id="sidenav-collapse-main">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link text-white " href="../pages/dashboard.html">
-              <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                <i class="ti ti-harddrives opacity-10"></i>
-              </div>
-              <span class="nav-link-text ms-1">Manage Account</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-white " href="../pages/tables.html">
-              <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                <i class="ti ti-write opacity-10"></i>
-              </div>
-              <span class="nav-link-text ms-1">Manage Articles</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-white " href="../pages/tables.html">
-              <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                <i class="ti ti-agenda opacity-10"></i>
-              </div>
-              <span class="nav-link-text ms-1">Manage Event</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-white " href="../pages/billing.html">
-              <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                <i class="ti ti-comment-alt opacity-10"></i>
-              </div>
-              <span class="nav-link-text ms-1">Chat bot</span>
-            </a>
-          </li>
-          <li class="nav-item mt-3">
-            <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Account pages</h6>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-white " href="../pages/profile.html">
-              <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                <i class="ti ti-user opacity-10"></i>
-              </div>
-              <span class="nav-link-text ms-1">Profile</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-white " href="../pages/sign-up.html">
-              <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                <i class="ti ti-plus opacity-10"></i>
-              </div>
-              <span class="nav-link-text ms-1">Add</span>
-            </a>
-          </li>
-        </ul>
-      </div>
-    </aside>
+    <SidebarAdmin/>
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
-      <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" data-scroll="true">
+      {/* <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" data-scroll="true">
         <div class="container-fluid py-1 px-3">
           <nav aria-label="breadcrumb">
             <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
@@ -387,10 +266,12 @@ return(
             </ul>
           </div>
         </div>
-      </nav>
+      </nav> */}
+      <NavbarAdmin/>
       <div class="container-fluid py-4">
         <div class="card mb-2">
-          <div class="row">
+          <SubNavbarAdmin/>
+          {/* <div class="row">
           
           <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
             <div class="card">
@@ -444,65 +325,63 @@ return(
           </div>
         </div>
       </div>
-    </div>
+    </div> */}
+          {
+        editSection &&(
+          <div className='addContainer'>
+          <form onSubmit={(e) => handleUpdate(e, formDataEdit._id)} className="container">
+  <button className='close-btn btn btn-outline-danger mt-3' onClick={() => setEditSection(false)}>X</button>
+
+  <div className="form-group">
+    
+    <label htmlFor='name'>Name:</label>
+    <input type="text" className="form-control" id='name' name='name' onChange={handleEditOnChange} value={formDataEdit.name} />
+  </div>
+
+  <div className="form-group">
+    <label htmlFor='email'>Email:</label>
+    <input type="text" className="form-control" id='email' name='email' onChange={handleEditOnChange} value={formDataEdit.email} readOnly/>
+  </div>
+
+  <div className="form-group">
+    <label htmlFor='password'>Password:</label>
+    <input type="password" className="form-control" id='password' name='password' onChange={handleEditOnChange} required/>
+  </div>
+
+  <div className="form-group">
+    <label htmlFor='role'>Choose a role:</label>
+    <select className="form-control" name="role" id="role" onChange={handleEditOnChange}>
+      {/* <option value="Staff" selected>Staff</option> */}
+      <option value="Admin">Admin</option>
+      <option value="Manager">Manager</option>
+      <option value="Coordinator">Coordinator</option>
+      <option value="Student" selected>Student</option>
+    </select>
+  </div>
+
+  <div className="form-group">
+    <label htmlFor='department'>Choose a department:</label>
+    <select className="form-control" name="department" id="department" onChange={handleEditOnChange}>
+      <option value="">Select an option</option>
+      <option value="IT">IT</option>
+      <option value="Business">Business</option>
+      <option value="Design">Design</option>
+    </select>
+  </div>
+
+  <button className='btn' >Submit</button>
+</form>
+<br/>
+
+        </div>
+        )
+      }
           <div class="row">
-          <div className="chart-container">
-              <ResponsiveContainer width="100%" height={400}>
-                <LineChart
-                  data={data}
-                  margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-                >
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="name" />
-                  <YAxis />
-                  <Tooltip />
-                  <Legend />
-                  <Line type="monotone" dataKey="articles" stroke="#8884d8" activeDot={{ r: 8 }} />
-                  <Line type="monotone" dataKey="accounts" stroke="#82ca9d" />
-                </LineChart>
-              </ResponsiveContainer>
-            </div>
-            <div className="chart-container">
-            <ResponsiveContainer width="100%"  >
-              <BarChart
-                width={300}
-                height={300}
-                data={data1}
-                margin={{
-                  top: 5,
-                  right: 30,
-                  left: 20,
-                  bottom: 5,
-                }}
-                barSize={20}
-                barCategoryGap={5}
-              >
-                <XAxis dataKey="name" scale="point" padding={{ left: 50, right: 50 }} />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <CartesianGrid strokeDasharray="3 3" />
-                <Bar dataKey="Contribution" fill="#8884d8"  />
-              </BarChart>
-            </ResponsiveContainer>
-            </div>
-          {/* <div className="chart-container"> */}
-    {/* <ResponsiveContainer width="100%" height={400}>
-      <LineChart
-        data={data}
-        margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-      >
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="name" />
-        <YAxis />
-        <Tooltip />
-        <Legend />
-        <Line type="monotone" dataKey="articles" stroke="#8884d8" activeDot={{ r: 8 }} />
-        <Line type="monotone" dataKey="accounts" stroke="#82ca9d" />
-      </LineChart>
-    </ResponsiveContainer> */}
-  {/* </div> */}
+            
             <div class="col-12">
+              <Link to="/Signup">
+         <button className='btn' onClick={()=>setAddSection(true)}>Add Account</button> &nbsp;
+       </Link>
               <div class="card my-4">
                 
                 <div class="card-body px-0 pb-2 pt-0">
@@ -535,10 +414,10 @@ return(
                             <p class="text-xs font-weight-bold mb-0 pl-3">{el.department}</p>
                             </td>
                             <td class="align-middle">
-                              <a href="#" class="text-secondary font-weight-bold text-xs pl-1" data-toggle="tooltip" data-original-title="Edit user">
+                              <a href="#" class="text-secondary font-weight-bold text-xs pl-1" data-toggle="tooltip" data-original-title="Edit user"  onClick={() => handleEdit(el)}>
                                 Edit
                               </a>
-                              <a href="#"class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                              <a href="#"class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user" onClick={() => handleDelete(el._id)}>
                                 | Delete
                               </a>
                             </td>

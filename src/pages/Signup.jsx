@@ -2,6 +2,10 @@
 /* eslint-disable no-lone-blocks */
 import React, { Component, useState, useEffect } from "react";
 import axios from 'axios';
+import Header from "./component/Header";
+import Footer from "./component/Footer";
+import SidebarAdmin from "./component/SidebarAdmin";
+import NavbarAdmin from "./component/NavbarAdmin";
 // import '../assets/css/signup.css';
 
 export default function SignUp() {
@@ -29,7 +33,6 @@ export default function SignUp() {
 
       console.log(name, email, password, department);
     //   axios.defaults.baseURL = 'https://backend-test-ad5x.onrender.com';
-      axios.defaults.baseURL = 'http://localhost:5000';
 
 axios.post('/admin/createAccount', {
   name,
@@ -44,6 +47,7 @@ axios.post('/admin/createAccount', {
     if (data.status === 'ok') {
       setDepartment(null);
       alert('Registration Successful');
+      window.location.href = "/manageAccount";
     } else {
       alert('Email existed');
     }
@@ -55,7 +59,7 @@ axios.post('/admin/createAccount', {
   };
 
   const getFetchData = async()=>{
-    const data = await axios.get("http://localhost:5000/admin/faculty")
+    const data = await axios.get("/admin/faculty")
     console.log(data)
     if(data.data.success){
       setDataList(data.data.data)
@@ -70,6 +74,7 @@ axios.post('/admin/createAccount', {
   return (
 
     <section className="vh-100 gradient-custom">
+      <SidebarAdmin/>
       <div className="container py-5 h-100">
         <div className="row justify-content-center align-items-center h-100">
           <div className="col-12 col-lg-9 col-xl-7">
@@ -81,7 +86,7 @@ axios.post('/admin/createAccount', {
                     <div className="col-md-6 mb-4">
                       <div className="form-outline">
                         <label className="form-label" htmlFor="firstName">Name</label>
-                        <input type="text" id="firstName" className="form-control form-control-lg" onChange={(e) => setName(e.target.value)}/>
+                        <input required type="text" id="firstName" className="form-control form-control-lg" onChange={(e) => setName(e.target.value)}/>
                         
                       </div>
                     </div>
@@ -89,35 +94,38 @@ axios.post('/admin/createAccount', {
                   <div className="row">
                     <div className="col-md-6 mb-4">
                       <h6 className="mb-2 pb-1">Select the role: </h6>
-                        <input className="form-check-input" type="radio"
+                        <input type="radio"
                         name="Role"
                         value="Admin"
-                        onChange={(e) => setRole(e.target.value)}/>
+                        onChange={(e) => setRole(e.target.value)} required/>
                         <label className="form-check-label" htmlFor="femaleGender">&nbsp;Admin &nbsp; &nbsp;</label>
-                        <input className="form-check-input" type="radio"
+                        <br />
+                        <input type="radio"
                           name="Role"
-                          value="Staff"
+                          value="Student"
                           onChange={(e) => setRole(e.target.value)}/>
-                        <label className="form-check-label" htmlFor="femaleGender">&nbsp;Staff</label>
-                        <input className="form-check-input" type="radio"
+                        <label className="form-check-label" htmlFor="femaleGender">&nbsp;Student</label>
+                        <br />
+                        <input type="radio"
                           name="Role"
-                          value="QAM"
+                          value="Manager"
                           onChange={(e) => setRole(e.target.value)}/>
-                        <label className="form-check-label" htmlFor="femaleGender">&nbsp;QAM</label>
-                        <input className="form-check-input" type="radio"
+                        <label className="form-check-label" htmlFor="femaleGender">&nbsp;Manager</label>
+                        <br />
+                        <input type="radio"
                           name="Role"
-                          value="QAC"
+                          value="Coordinator"
                           onChange={(e) => setRole(e.target.value)}/>
-                        <label className="form-check-label" htmlFor="femaleGender">&nbsp;QAC</label>
+                        <label className="form-check-label" htmlFor="femaleGender">&nbsp;Coordinator</label>
                     </div>
-                      {role === "Staff" || role === "QAC"? (
+                      {role === "Student" || role === "Coordinator"? (
                           <div className="mb-3">
                           <label>Faculty</label>
                           <select
                             className="form-control"
                             onChange={(e) => setDepartment(e.target.value)}
                           >
-                            <option value="All">All Faculties</option>
+                            <option value="null">All Faculties</option>
                             {dataList.map((el) => {
                                 return (
                                     <option key={el._id} value={el.name}>
@@ -146,7 +154,7 @@ axios.post('/admin/createAccount', {
                     <div className="col-md-6 mb-4 pb-2">
                       <div className="form-outline">
                         <label className="form-label" htmlFor="emailAddress">Email</label>
-                        <input type="email" id="emailAddress" className="form-control form-control-lg" onChange={(e) => setEmail(e.target.value)}/>
+                        <input required type="email" id="emailAddress" className="form-control form-control-lg" onChange={(e) => setEmail(e.target.value)}/>
                         
                       </div>
                     </div>
