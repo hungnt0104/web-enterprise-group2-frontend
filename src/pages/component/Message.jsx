@@ -42,7 +42,7 @@ const Messages = ({ socket }) => {
   return (
     <div className="messagesColumn" style={{ height: '85vh', overflow: 'auto', padding: '10px 10px 10px 40px', backgroundColor: '#222', color: '#fff' }}>
       {messagesReceived.map((msg, i) => (
-        <div className="message" key={i} style={{ background: msg.email === yourEmailAddress ? '#007bff' : 'white', borderRadius: '6px', marginBottom: '24px', maxWidth: '600px', padding: '12px', marginLeft: msg.email === yourEmailAddress ? 'auto' : '0', marginRight: msg.email !== yourEmailAddress ? 'auto' : '0' }}>
+        <div className="message" key={i} style={{ background: msg.email === yourEmailAddress ? '#007bff' : 'white', borderRadius: '20px', marginBottom: '24px', maxWidth: '600px', padding: '12px', marginLeft: msg.email === yourEmailAddress ? 'auto' : '0', marginRight: msg.email !== yourEmailAddress ? 'auto' : '0' }}>
           <div className="msgMeta" style={{ color: msg.email === yourEmailAddress ? 'white' : 'black', fontSize: '1rem' }}>
             {msg.email && <span>{msg.email}</span>}
             {/* <span>{new Date(msg.createdTime).toLocaleDateString()}</span> */}

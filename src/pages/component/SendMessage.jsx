@@ -44,7 +44,7 @@ const SendMessage = ({ socket }) => {
       />
       
       <button className="btn btn-primary" style={{ backgroundColor: 'blue' }} onClick={sendMessage}>
-        Send Message
+        Send 
       </button>
     </div>
   );
