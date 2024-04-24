@@ -34,20 +34,21 @@ const SendMessage = ({ socket }) => {
   };
 
   return (
-    <div className="mb-3">
+    <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', backgroundColor: '#222', padding: '20px' }}>
       <input
         className="messageInput"
-        style={{ padding: '14px', marginRight: '16px', width: '60%', borderRadius: '6px', border: '1px solid rgb(153, 217, 234)', fontSize: '0.9rem' }}
+        style={{ padding: '14px', marginRight: '16px', width: '60%', borderRadius: '6px', border: '1px solid rgb(153, 217, 234)', fontSize: '0.9rem', backgroundColor: '#333', color: 'white', flexGrow: 1 }}
         placeholder='Message...'
         onChange={(e) => setMessage(e.target.value)}
         value={message}
       />
       
-      <button className="btn btn-primary" onClick={sendMessage}>
+      <button className="btn btn-primary" style={{ backgroundColor: 'blue' }} onClick={sendMessage}>
         Send Message
       </button>
     </div>
   );
+  
 };
 
 export default SendMessage;

@@ -44,8 +44,7 @@ axios.post('/users/login', {
                 <div className="col-lg-6">
                   <div className="card-body p-md-5 mx-md-4">
                     <div className="text-center">
-                      {/* <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/lotus.webp"
-                        style={{ width: '185px' }} alt="logo" /> */}
+            
                         <img src="assets/img/logo/logo.png" alt="" />
                       <h4 className="mt-1 mb-5 pb-1">Welcome to the website</h4>
                     </div>

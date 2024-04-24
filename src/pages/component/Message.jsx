@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 
 const Messages = ({ socket }) => {
   const [messagesReceived, setMessagesReceived] = useState([]);
+  const yourEmailAddress = window.localStorage.getItem('email');
 
   useEffect(() => {
     // Define a function to handle incoming messages
@@ -39,21 +40,23 @@ const Messages = ({ socket }) => {
   }, [messagesReceived]);
 
   return (
-    <div className="messagesColumn" style={{ height: '85vh', overflow: 'auto', padding: '10px 10px 10px 40px' }}>
+    <div className="messagesColumn" style={{ height: '85vh', overflow: 'auto', padding: '10px 10px 10px 40px', backgroundColor: '#222', color: '#fff' }}>
       {messagesReceived.map((msg, i) => (
-        <div className="message" key={i} style={{ background: 'rgb(0, 24, 111)', borderRadius: '6px', marginBottom: '24px', maxWidth: '600px', padding: '12px' }}>
-          <div className="msgMeta" style={{ color: 'rgb(153, 217, 234)', fontSize: '0.75rem' }}>
-            {/* <span>{msg.name}</span> */}
-            {/* Check if email exists before accessing it */}
+        <div className="message" key={i} style={{ background: msg.email === yourEmailAddress ? '#007bff' : 'white', borderRadius: '6px', marginBottom: '24px', maxWidth: '600px', padding: '12px', marginLeft: msg.email === yourEmailAddress ? 'auto' : '0', marginRight: msg.email !== yourEmailAddress ? 'auto' : '0' }}>
+          <div className="msgMeta" style={{ color: msg.email === yourEmailAddress ? 'white' : 'black', fontSize: '1rem' }}>
             {msg.email && <span>{msg.email}</span>}
-            <span>{new Date(msg.createdTime).toLocaleString()}</span>
+            {/* <span>{new Date(msg.createdTime).toLocaleDateString()}</span> */}
+            <span>&nbsp;</span>
+            <span>{new Date(msg.createdTime).toLocaleTimeString()}</span>
           </div>
-          <p className="msgText" style={{ color: '#fff' }}>{msg.message}</p>
-          <br />
+          <p className="msgText" style={{ fontSize: '1.5rem', color: msg.email === yourEmailAddress ? 'white' : 'black' }}>{msg.message}</p>
         </div>
       ))}
     </div>
   );
+  
+  
+  
 };
 
 export default Messages;

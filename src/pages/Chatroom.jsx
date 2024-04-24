@@ -38,47 +38,41 @@ const Chatroom = ({ socket }) => {
         navigate('/message', { replace: true });
     };
 
-    return (
-        <div className="container" 
-             style={{ height: '100vh', 
-                      width: '100%', 
-                      display: 'flex', 
-                      justifyContent: 'center', alignItems: 'center'
-                    }}>
-            <div className="formContainer" 
-                 style={{ width: '400px', margin: '0 auto 0 auto', padding: '32px', 
-                          background: 'blue', borderRadius: '6px', display: 'flex', 
-                          flexDirection: 'column', alignItems: 'center', gap: '28px' }}>
-                <h1>{`Message Room`}</h1>
-          
-                <input className="form-outline mb-4" 
-                       style={{ width: '100%', padding: '12px', 
-                                borderRadius: '6px', border: '1px solid rgb(63, 73, 204)', fontSize: '0.9rem' }} 
-                       placeholder='Username...' 
-                       value={name}
-                       readOnly
-                />
-
-                <input className="form-outline mb-4" 
-                       style={{ width: '100%', padding: '12px', 
-                                borderRadius: '6px', border: '1px solid rgb(63, 73, 204)', fontSize: '0.9rem' }} 
-                       placeholder='Department...'
-                       value={department}
-                       readOnly
-                />
-
-                <input className="form-outline mb-4" 
-                       style={{ width: '100%', padding: '12px', 
-                                borderRadius: '6px', border: '1px solid rgb(63, 73, 204)', fontSize: '0.9rem' }} 
-                       placeholder='Email...'
-                       value={email}
-                       readOnly
-                />
   
-                <button className="btn btn-primary" onClick={joinRoom}>Join Room</button>
+        return (
+            <div className="container" 
+                 style={{ height: '100vh', 
+                          width: '100%', 
+                          display: 'flex', 
+                          justifyContent: 'center', alignItems: 'center',
+                          backgroundImage: 'url(\'https://getwallpapers.com/wallpaper/full/e/b/f/1029750-vertical-black-elegant-wallpaper-1920x1080.jpg\')', // Provided background URL
+                          backgroundSize: 'cover', // Ensure the image covers the entire container
+                          backgroundPosition: 'center' // Center the background image
+                        }}>
+                <div className="formContainer" 
+                     style={{ width: '400px', margin: '0 auto 0 auto', padding: '32px', 
+                              borderRadius: '6px', display: 'flex', 
+                              flexDirection: 'column', alignItems: 'center', gap: '28px',
+                              background: 'rgba(255, 255, 255, 0.5)' }}> {/* Semi-transparent white background */}
+                    <h1 style={{ color: 'white' }}>Message Room</h1>
+              
+                    <div style={{ color: 'white' }}>
+                        Name: <strong>{name}</strong>
+                    </div>
+                    <div style={{ color: 'white' }}>
+                        Email: <strong>{email}</strong>
+                    </div>
+                    <div style={{ color: 'white' }}>
+                        Department:<strong> {department}</strong>
+                    </div>
+                    
+            
+                    <button className="btn btn-primary" style={{ backgroundColor: 'black', color: 'white' }} onClick={joinRoom}>Join Room</button>
+                </div>
             </div>
-        </div>
-    );
+        );
+        
+    
 };
   
 export default Chatroom;
