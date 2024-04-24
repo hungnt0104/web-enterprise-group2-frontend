@@ -141,13 +141,12 @@ includeJS('../../assets/js/vendor/modernizr-3.5.0.min.js');
                       <ul id="navigation">
                         <li><a href="/home">Home</a></li>
                         <li><a href="about.html">About</a></li>
-                        <li><a href="category.html">Contribute</a></li>
+                        <li><a href="/events">Events</a></li>
                         {/* <li><a href="latest_news.html">Latest News</a></li> */}
-                        <li><a href="#">My Articles</a>
-                          <ul className="submenu">
-                            <li><a href="blog.html">Manage My Contribution</a></li>
-                            <li><a href="blog_details.html">Blog Details</a></li>
-                            <li><a href="elements.html">Element</a></li>
+                        <li><a href="#">Interaction</a>
+                          <ul className="/submenu">
+                            <li><a href="/myArticle">My Articles</a></li>
+                            <li><a href="/chatroom">Chat Room</a></li>
                           </ul>
                         </li>
                         <li><a href="/allArticles">All Articles</a></li>

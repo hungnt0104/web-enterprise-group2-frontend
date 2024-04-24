@@ -35,7 +35,7 @@ const HomePage = () => {
 
                 if(data.data.success){
                 setFacultyList(data.data.data)
-                // console.log(facultyList)
+                console.log(facultyList)
                 // alert(data.data.message)
             }
         } catch (error) {
@@ -61,6 +61,7 @@ const HomePage = () => {
     }
 
     return (
+        facultyList && articleList &&
         <div>
             <Header/>
         <div class="about-area2 gray-bg pt-60 pb-60">
@@ -71,7 +72,7 @@ const HomePage = () => {
                             <div class="row justify-content-between align-items-end mb-15">
                                 <div class="col-xl-4">
                                     <div class="section-tittle mb-30">
-                                        <h3>Whats New</h3>
+                                        <h3>Articles in all semesters</h3>
                                     </div>
                                 </div>
                                 <div class="col-xl-8 col-md-9">
@@ -126,8 +127,8 @@ const HomePage = () => {
                                                 />
                                             </div>
                                             <div className="whates-caption whates-caption2">
-                                                <h4><a href="#">{article.title}</a></h4>
-                                                <span>by {article.author} - {article.date}</span>
+                                                <h4><a href={article._id}>{article.title}</a></h4>
+                                                <span>by {article.name} - {article.date}</span>
                                                 <p>{article.content}</p>
                                             </div>
                                         </div>

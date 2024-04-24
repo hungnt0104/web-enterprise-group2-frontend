@@ -19,48 +19,12 @@ const GetArticle = () => {
     const fetchData = async () => {
         try {
             const response = await axios.get('/admin/Events');
-            setEventList(response.data);
+            const reversedEventList = response.data.reverse();
+            setEventList(reversedEventList);
         } catch (error) {
             console.error('Error fetching articles:', error);
         }
     };
-
-//     const handleSearch = (e) => {
-//         e.preventDefault();
-//         const searchInput = e.target.querySelector('input[type="text"]');
-//         if (searchInput) {
-//             const keyword = searchInput.value.trim().toLowerCase();
-//             // Check if keyword is a string before performing search
-//             if (typeof keyword === 'string' && keyword.length > 0) {
-//             const filtered = articleList.filter(article =>
-//                 article.title.toLowerCase().includes(keyword)
-//             );
-//             setDisplayedArticles(filtered);
-//             } else {
-//             // If keyword is empty or not a string, reset the article list
-//             setDisplayedArticles(articleList);
-//             }
-//         }
-//     };
-
-//     const removeSort = () => {
-//         setDisplayedArticles(articleList);
-//     }
-
-//     const sortByComments = () => {
-//       const sortedArticles = [...articleList].sort((a, b) => b.comments.length - a.comments.length);
-//       setDisplayedArticles(sortedArticles);
-//   };
-
-//   const sortByDate = () => {
-//       const sortedArticles = [...articleList].sort((a, b) => new Date(a.date) - new Date(b.date));
-//       setDisplayedArticles(sortedArticles);
-//   };
-
-//   const sortByName = () => {
-//       const sortedArticles = [...articleList].sort((a, b) => a.title.localeCompare(b.title));
-//       setDisplayedArticles(sortedArticles);
-//   };
 
   const [currentPage, setCurrentPage] = useState(1);
     const articlesPerPage = 5;

@@ -35,8 +35,6 @@ const GetOneArticle = () => {
           console.log(response.data); // Log success message
     window.alert('You have approved this article successfully!'); // Show success message
     window.location.reload();
-          // window.history.back();
-          // Optionally, you can reset the comment state or show a success message to the user
       } catch (error) {
           console.error(error); // Log error message
       }
@@ -60,9 +58,13 @@ const GetOneArticle = () => {
         e.preventDefault();
         
         try {
-			// console.log(articleId)
+          // console.log(article)
+            const event = await axios.get(`/admin/getEvent/${article.eventId}`)
+            const finalDeadline = event.data.closureDates.finalClosureDate
+            
+			console.log(finalDeadline)
             const response = await axios.post(`/articles/commentArticle/${articleId}`, {
-                comment, author
+                comment, author, finalDeadline
             });
             console.log(response.data); // Log success message
 			window.alert('Comment submitted successfully!'); // Show success message
@@ -71,6 +73,7 @@ const GetOneArticle = () => {
             // Optionally, you can reset the comment state or show a success message to the user
         } catch (error) {
             console.error(error); // Log error message
+            window.alert('The final deadline was passed')
             // Optionally, you can show an error message to the user
         }
     };
@@ -265,7 +268,7 @@ const GetOneArticle = () => {
             </div>
             <div className="col-lg-4">
               <div className="blog_right_sidebar">
-                <aside className="single_sidebar_widget search_widget">
+                {/* <aside className="single_sidebar_widget search_widget">
                   <form action="#">
                     <div className="form-group">
                       <div className="input-group mb-3">
@@ -277,7 +280,7 @@ const GetOneArticle = () => {
                     </div>
                     <button className="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn" type="submit">Search</button>
                   </form>
-                </aside>
+                </aside> */}
                 <aside className="single_sidebar_widget post_category_widget">
                 <h4 className="widget_title">Attachment</h4>
                 <ul className=" cat-list">

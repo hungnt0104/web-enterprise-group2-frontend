@@ -11,6 +11,7 @@ import Footer from './component/Footer';
 const HomePage = () => {
     const [articleList, setArticleList] = useState([]);
     const [facultyList, setFacultyList] = useState([]);
+    const [currentEvent, setCurrentEvent] = useState("");
     // const facultyName = `nav-${facultyList.name}-tab`
     let allArticles = []
     let title = ""
@@ -22,15 +23,20 @@ const HomePage = () => {
 
     const fetchData = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/articles/getSelectedArticles');
+            const data = await axios.get("/admin/faculty")
+            // console.log(data)
+
+            const event = await axios.get("/admin/currentEvent")
+            // setCurrentEvent(event.data)
+            // console.log(event, currentEvent)
+            const response = await axios.get(`/articles/getCurrentSelectedArticles/${event.data._id}`);
             setArticleList(response.data);
             allArticles = response.data
             // console.log(allArticles)
             title = allArticles[0].title
-            console.log(title)
+            // console.log(title)
             // console.log(response.data)
-            const data = await axios.get("/admin/faculty")
-            // console.log(data)
+            
             // console.log(articleList)
 
                 if(data.data.success){
@@ -52,12 +58,14 @@ const HomePage = () => {
     
 
     return (
-        
+        // articleList && 
         <div>
+
             <Header/>
             <main>
     <div class="trending-area fix pt-25 gray-bg">
         <div class="container">
+            <h1 align="center" class="section-tittle mb-30">Articles in this semester</h1>
             <div class="trending-main">
                 <div class="row">
                 <div className="col-lg-8">
@@ -75,7 +83,7 @@ const HomePage = () => {
                                 <img src={`http://localhost:5000/images/${article.images[0]}`} alt={`Article ${index}`} />
                                 <div className="trend-top-cap">
                                     <span className="bgr" data-animation="fadeInUp" data-delay=".2s" data-duration="1000ms">Business</span>
-                                    <h2><a href={`/articleDetail/${article._id}`} data-animation="fadeInUp" data-delay=".4s" data-duration="1000ms">{article.title}</a></h2>
+                                    <h2><a href={`/${article._id}`} data-animation="fadeInUp" data-delay=".4s" data-duration="1000ms">{article.title}</a></h2>
                                     <p data-animation="fadeInUp" data-delay=".6s" data-duration="1000ms">by {article.name} - {monthText} {dayOfMonth}, {date.getFullYear()}</p>
                                 </div>
                             </div>
@@ -97,8 +105,8 @@ const HomePage = () => {
                 <img src={`http://localhost:5000/images/${article.images[0]}`} alt={`Article ${index}`} />
                 <div className="trend-top-cap trend-top-cap2">
                     <span className={`bgg`}>{article.department}</span>
-                    <h2><a href={`/articleDetail/${article._id}`}>{article.title}</a></h2>
-                    <p>by {article.author} - {new Date(article.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</p>
+                    <h2><a href={`${article._id}`}>{article.title}</a></h2>
+                    <p>by {article.name} - {new Date(article.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</p>
                 </div>
             </div>
         </div>
@@ -175,8 +183,8 @@ const HomePage = () => {
                                                                                     />
                                             </div>
                                             <div className="whates-caption">
-                                            <h4><a href="#">{article.title}</a></h4>
-                                            <span>by {article.author} - {article.date}</span>
+                                            <h4><a href={article._id}>{article.title}</a></h4>
+                                            <span>by {article.name} - {article.date}</span>
                                             <p>{article.content}</p>
                                             </div>
                                         </div>
@@ -232,9 +240,9 @@ const HomePage = () => {
             <div key={article.id} className="most-recent-img">
                 <img src={`http://localhost:5000/images/${article.images[0]}`}  />
                 <div className="most-recent-cap">
-                    <span className="bgbeg">Vogue</span>
-                    <h4><a href="latest_news.html">{article.title}</a></h4>
-                    <p>{article.author}  |  {article.timeAgo}</p>
+                    <span className="bgbeg">MOST RECENT</span>
+                    <h4><a href={article._id}>{article.title}</a></h4>
+                    <p>{article.name}  |  {article.timeAgo}</p>
                 </div>
             </div>
         ))}
@@ -246,8 +254,8 @@ const HomePage = () => {
             <img src={`http://localhost:5000/images/${article.images[0]}`}  width='85px'/>
             </div>
             <div className="most-recent-capt">
-                <h4><a href="latest_news.html">{article.title}</a></h4>
-                <p>{article.author}  |  {article.date}</p>
+                <h4><a href={article._id}>{article.title}</a></h4>
+                <p>{article.name}  |  {article.date}</p>
             </div>
         </div>
     ))}
@@ -280,11 +288,11 @@ const HomePage = () => {
                                         {topFiveArticles.map(article => (
                                             <div class="weekly2-single">
                                                 <div class="weekly2-img">
-                                                <img style={{ width: '250px' }} src={`http://localhost:5000/images/${article.images[0]}`} alt="" />
+                                                <img style={{ height: '300px' }} src={`http://localhost:5000/images/${article.images[0]}`} alt="" />
                                                 </div>
                                                 <div class="weekly2-caption">
-                                                    <h4><a href={article.url}>{article.title}</a></h4>
-                                                    <p>{article.author} | {article.publishedTime}</p>
+                                                    <h4><a href={article._id}>{article.title}</a></h4>
+                                                    <p>{article.name} | {article.comments.length} Comments</p>
                                                 </div>
                                             </div>
                                         ))}

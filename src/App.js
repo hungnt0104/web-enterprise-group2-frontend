@@ -32,6 +32,7 @@ import TokenExpirationChecker from './TokenExpirationChecker';
 import Statistics from './pages/Statistics';
 import GetEvent from './pages/GetEvent'
 import EventDetail from './pages/EventDetail'
+import MyArticle from './pages/MyArticle';
 
 import Chatroom from './pages/Chatroom';
 import Chat from './pages/Chat';
@@ -64,29 +65,33 @@ function App() {
             path="/events"
             element={isLoggedIn == "true" ? <GetEvent /> : <Login />}
           />
-          <Route path="/:id" element={<DataResolver />} />
-          <Route
+          
+          {/* <Route
             path="/:id"
             element={isLoggedIn == "true" ? <EventDetail /> : <Login />}
-          />
+          /> */}
           <Route
             path="/allArticles"
             element={isLoggedIn == "true" ? <AllArticle /> : <Login />}
           />
           <Route
+            path="/myArticle"
+            element={isLoggedIn == "true" ? <MyArticle /> : <Login />}
+          />
+          <Route
             path="/profile"
             element={isLoggedIn == "true" ? <Profile /> : <Login />}
           />
-          <Route
+          {/* <Route
             path="/:id"
             element={isLoggedIn == "true" ? <GetOneArticle /> : <Login />}
-          />
+          /> */}
           
           
           <Route path="/login" element={<Login />} />
           <Route 
             path="/signup" 
-            element={role === "Admin" ? <SignUp /> : <Forbidden />} 
+            element={role === "Student" ? <SignUp /> : <Forbidden />} 
           />
           <Route 
             path="/manageaccount" 
@@ -126,12 +131,12 @@ function App() {
             path='/message'
             element={<Chat socket={socket} />}
           />
+          <Route path="/:id" element={<DataResolver />} />
 
 
 
-
-           <Route>           
-        </Route>
+           {/* <Route>           
+        </Route> */}
           <Route path="/forbidden" element={<Forbidden />} />
         </Routes>
       </TokenExpirationChecker>
@@ -173,7 +178,7 @@ function App() {
       return <p>Loading...</p>; // Or some loading component
     }
   
-    return type === 'Event' ? <EventDetail data={data} /> : <GetOneArticle data={data} />;
+    return type === 'Event' ? <EventDetail /> : <GetOneArticle />;
   }
 }
 

@@ -404,7 +404,7 @@ return(
                                 <td><p class="text-xs font-weight-bold mb-0 ">{el.closureDates.firstDeadline}</p></td>
                                 <td><p class="text-xs font-weight-bold mb-0 ">{el.closureDates.finalClosureDate}</p></td>
                                 <td class="align-middle">
-                                 <a href="/eventDetail" class="text-secondary font-weight-bold text-xs pl-3" data-toggle="tooltip" data-original-title="Edit user"  onClick={() => handleEdit(el)}>
+                                 <a href={el._id} class="text-secondary font-weight-bold text-xs pl-3" data-toggle="tooltip" data-original-title="Edit user"  onClick={() => handleEdit(el)}>
                                     Detail
                                   </a>
                                   <a href="#" class="text-secondary font-weight-bold text-xs pl-3" data-toggle="tooltip" data-original-title="Edit user"  onClick={() => handleEdit(el)}>
