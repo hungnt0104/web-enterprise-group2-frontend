@@ -63,8 +63,8 @@ const handleOnChange = (e)=>{ //e: event triggered. Trong truong hop nay la khi 
 //fetch data from db, display all data
 const getFetchData = async()=>{
   const data = await axios.get(`/articles/getMyArticle/${email}`)
-  console.log(data.statusText)
-  if(data.statusText === 'OK'){
+  // console.log(data)
+  if(data.status === 200){
     setDataList(data.data)
     // alert(data.data.message)
   }
@@ -78,7 +78,7 @@ useEffect(()=>{
 const handleDelete = async(id)=>{
   const data = await axios.delete("/articles/deleteArticle/"+id)
 //   console.log(data)
-  if (data.statusText === 'OK')
+  if (data.status === 200)
   {
     getFetchData()
     alert('Delete Article Successfully')
@@ -334,7 +334,7 @@ return(
                                     <img
                                 style={{ height: '200px', width: '100%', objectFit: 'cover' }}
                                 className="card-img rounded-0"
-                                src={`http://localhost:5000/images/${el.images[0]}`}
+                                src={`https://web-enterprise-group2-backend-test.onrender.com/images/${el.images[0]}`}
                                 alt=""
                             />
                                     </div>

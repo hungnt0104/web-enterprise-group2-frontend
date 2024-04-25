@@ -10,8 +10,6 @@ import SubNavbarAdmin from './component/SubNavbarAdmin';
 // import 'node_modules/bootstrap/dist/css/bootstrap.min.css'
 // import '../ProductStyle.css'
 
-// axios.defaults.baseURL = 'https://backend-test-ad5x.onrender.com/admin';
-// axios.defaults.baseURL = 'http://localhost:5000/admin'
 
 const ManageAccount = () =>{
   //giup bat tat add section

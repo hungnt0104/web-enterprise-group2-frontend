@@ -191,6 +191,7 @@ import Sidebar from './component/Sidebar'; // Import the Sidebar component
 const GetArticle = () => {
     const [articleList, setArticleList] = useState([]);
     const [displayedArticles, setDisplayedArticles] = useState([]);
+    const faculty = window.localStorage.getItem("department")
 
     useEffect(() => {
         fetchData();
@@ -198,7 +199,7 @@ const GetArticle = () => {
 
     const fetchData = async () => {
         try {
-            const response = await axios.get('/articles/getArticles');
+            const response = await axios.get(`/articles/getFacultyArticles/${faculty}`);
             setArticleList(response.data);
             setDisplayedArticles(response.data);
         } catch (error) {
@@ -275,7 +276,7 @@ const GetArticle = () => {
                             <img
                                 style={{ height: '200px', width: '100%', objectFit: 'cover' }}
                                 className="card-img rounded-0"
-                                src={`http://localhost:5000/images/${article.images[0]}`}
+                                src={`https://web-enterprise-group2-backend-test.onrender.com/images/${article.images[0]}`}
                                 alt={`Article ${index}`}
                             />
                             <a href="#" className="blog_item_date">

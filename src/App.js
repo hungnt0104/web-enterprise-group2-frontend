@@ -36,9 +36,10 @@ import MyArticle from './pages/MyArticle';
 
 import Chatroom from './pages/Chatroom';
 import Chat from './pages/Chat';
-const socket = io.connect('http://localhost:5000');
+// const socket = io.connect('http://localhost:5000');
+const socket = io.connect('https://web-enterprise-group2-backend-test.onrender.com');
 
-axios.defaults.baseURL = 'http://localhost:5000';
+axios.defaults.baseURL = 'https://web-enterprise-group2-backend-test.onrender.com';
 
 
 
@@ -49,18 +50,16 @@ function App() {
     <Router>
       <TokenExpirationChecker> {/* Wrap the Routes with TokenExpirationChecker */}
         <Routes>
-          <Route
-            path="/"
-            element={isLoggedIn == "true" ? <GetArticle /> : <Login />}
-          />
+          <Route path="/" element={<HomePage />} />
+          <Route path="/home" element={<HomePage />} />
           <Route
             path="/menu"
-            element={isLoggedIn == "true" ? <GetArticle /> : <Login />}
+            element={isLoggedIn == "Coordinator" ? <GetArticle /> : <Login />}
           />
-          <Route
+          {/* <Route
             path="/home"
             element={isLoggedIn == "true" ? <HomePage /> : <Login />}
-          />
+          /> */}
           <Route
             path="/events"
             element={isLoggedIn == "true" ? <GetEvent /> : <Login />}
@@ -91,7 +90,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route 
             path="/signup" 
-            element={role === "Student" ? <SignUp /> : <Forbidden />} 
+            element={role === "Admin" ? <SignUp /> : <Forbidden />} 
           />
           <Route 
             path="/manageaccount" 
@@ -116,7 +115,7 @@ function App() {
           />
           <Route 
             path="/createArticle" 
-            element={<CreateArticle />} 
+            element={isLoggedIn == "true" ? <CreateArticle /> : <Login />}
           />
           
           
@@ -195,41 +194,41 @@ function Forbidden() {
   );
 }
 
-function DataResolver() {
-  const { id } = useParams();
-  const [data, setData] = useState(null);
-  const [isLoggedIn] = useState(localStorage.getItem("isLoggedIn") === "true"); // Assuming store login state in localStorage
-  const [type, setType] = useState("");
+// function DataResolver() {
+//   const { id } = useParams();
+//   const [data, setData] = useState(null);
+//   const [isLoggedIn] = useState(localStorage.getItem("isLoggedIn") === "true"); // Assuming store login state in localStorage
+//   const [type, setType] = useState("");
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const response = await axios.get(`/articles/getArticle/${id}`);
-        console.log(response, "This is an article");
-        setType("Article");
-        // const jsonData = await response.json();
-        // setData(jsonData);
-      } catch (error) {
-        const response = await axios.get(`/admin/getEvent/${id}`);
-        console.log(response, "This is an event");
-        setType("Event");
-        // const jsonData = await response.json();
-        // setData(jsonData);
-      }
-    }
+//   useEffect(() => {
+//     async function fetchData() {
+//       try {
+//         const response = await axios.get(`/articles/getArticle/${id}`);
+//         console.log(response, "This is an article");
+//         setType("Article");
+//         // const jsonData = await response.json();
+//         // setData(jsonData);
+//       } catch (error) {
+//         const response = await axios.get(`/admin/getEvent/${id}`);
+//         console.log(response, "This is an event");
+//         setType("Event");
+//         // const jsonData = await response.json();
+//         // setData(jsonData);
+//       }
+//     }
 
-    fetchData();
-  }, [id]);
+//     fetchData();
+//   }, [id]);
 
-  if (!isLoggedIn) {
-    return <Login />;
-  }
+//   if (!isLoggedIn) {
+//     return <Login />;
+//   }
 
-  if (!data) {
-    return <p>Loading...</p>; // Or some loading component
-  }
+//   if (!data) {
+//     return <p>Loading...</p>; // Or some loading component
+//   }
 
-  return type === 'Event' ? <EventDetail data={data} /> : <GetOneArticle data={data} />;
-}
+//   return type === 'Event' ? <EventDetail data={data} /> : <GetOneArticle data={data} />;
+// }
 
 export default App;

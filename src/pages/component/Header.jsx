@@ -18,6 +18,7 @@ import '../../assets/css/style.css';
 
 const Header = () => {
   const name = window.localStorage.getItem('name');
+  const isLoggedIn = window.localStorage.getItem("loggedIn");
 
   useEffect(() => {
     // Function to include JavaScript files dynamically
@@ -140,11 +141,11 @@ includeJS('../../assets/js/vendor/modernizr-3.5.0.min.js');
                     <nav>
                       <ul id="navigation">
                         <li><a href="/home">Home</a></li>
-                        <li><a href="about.html">About</a></li>
+                        <li><a href="/statistics">Admin Dashboard</a></li>
                         <li><a href="/events">Events</a></li>
                         {/* <li><a href="latest_news.html">Latest News</a></li> */}
                         <li><a href="#">Interaction</a>
-                          <ul className="/submenu">
+                          <ul className="submenu">
                             <li><a href="/myArticle">My Articles</a></li>
                             <li><a href="/chatroom">Chat Room</a></li>
                           </ul>
@@ -161,7 +162,14 @@ includeJS('../../assets/js/vendor/modernizr-3.5.0.min.js');
                       <i className="fa fa-search"></i>
                     </div> */}
                     <ul className="header-social">
-                      <li><a href="/profile">My Profile</a></li>
+                                        {
+                      isLoggedIn ? (
+                        <li><a href="/profile">My Profile</a></li>
+                      ) : (
+                        <li><a href="/login">Login</a></li>
+                      )
+                    }
+                      {/* <li><a href="/profile">My Profile</a></li> */}
                       {/* <li><a href="https://www.fb.com/sai4ull"><i className="fab fa-facebook-f"></i></a></li>
                       <li><a href="#"><i className="fab fa-twitter"></i></a></li>
                       <li><a href="#"><i className="fab fa-instagram"></i></a></li>

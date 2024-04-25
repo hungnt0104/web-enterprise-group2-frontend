@@ -8,8 +8,6 @@ export default function Login() {
   function handleSubmit(e) {
     e.preventDefault();
     console.log(email, password);
-// axios.defaults.baseURL = 'https://backend-test-ad5x.onrender.com';
-// axios.defaults.baseURL = 'http://localhost:5000'
 axios.post('/users/login', {
   email,
   password,
@@ -26,10 +24,11 @@ axios.post('/users/login', {
       window.localStorage.setItem('email', data.data.email);
       window.localStorage.setItem('name', data.data.name);
       window.localStorage.setItem('department', data.data.department);
-      window.location.href = './menu';
+      window.location.href = '/';
     }
   })
   .catch((error) => {
+    alert('Wrong email or password')
     console.error('Error:', error);
   });
   }

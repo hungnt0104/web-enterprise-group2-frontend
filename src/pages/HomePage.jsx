@@ -80,9 +80,9 @@ const HomePage = () => {
                     <div className="single-slider" key={index}>
                         <div className="trending-top mb-30">
                             <div className="trend-top-img">
-                                <img src={`http://localhost:5000/images/${article.images[0]}`} alt={`Article ${index}`} />
+                                <img src={`https://web-enterprise-group2-backend-test.onrender.com/images/${article.images[0]}`} alt={`Article ${index}`} />
                                 <div className="trend-top-cap">
-                                    <span className="bgr" data-animation="fadeInUp" data-delay=".2s" data-duration="1000ms">Business</span>
+                                    <span className="bgr" data-animation="fadeInUp" data-delay=".2s" data-duration="1000ms">{article.department}</span>
                                     <h2><a href={`/${article._id}`} data-animation="fadeInUp" data-delay=".4s" data-duration="1000ms">{article.title}</a></h2>
                                     <p data-animation="fadeInUp" data-delay=".6s" data-duration="1000ms">by {article.name} - {monthText} {dayOfMonth}, {date.getFullYear()}</p>
                                 </div>
@@ -102,7 +102,7 @@ const HomePage = () => {
     <div key={index} className="col-lg-12 col-md-6 col-sm-6">
         <div className="trending-top mb-30">
             <div className="trend-top-img">
-                <img src={`http://localhost:5000/images/${article.images[0]}`} alt={`Article ${index}`} />
+                <img src={`https://web-enterprise-group2-backend-test.onrender.com/images/${article.images[0]}`} alt={`Article ${index}`} />
                 <div className="trend-top-cap trend-top-cap2">
                     <span className={`bgg`}>{article.department}</span>
                     <h2><a href={`${article._id}`}>{article.title}</a></h2>
@@ -179,13 +179,13 @@ const HomePage = () => {
                                         <div className="whats-news-single mb-40">
                                             <div className="whates-img">
                                                                                     <img
-                                                                                        src={`http://localhost:5000/images/${article.images[0]}`}
+                                                                                        src={`https://web-enterprise-group2-backend-test.onrender.com/images/${article.images[0]}`}
                                                                                     />
                                             </div>
                                             <div className="whates-caption">
                                             <h4><a href={article._id}>{article.title}</a></h4>
                                             <span>by {article.name} - {article.date}</span>
-                                            <p>{article.content}</p>
+                                            {/* <p>{article.content.slice(0, 100)}</p> */}
                                             </div>
                                         </div>
                                         </div>
@@ -204,12 +204,12 @@ const HomePage = () => {
                         <div className="whats-right-img">
                             <img
                                 height='104px'
-                                src={`http://localhost:5000/images/${article.images[0]}`} // Assuming `images` is an array and you want the first image
+                                src={`https://web-enterprise-group2-backend-test.onrender.com/images/${article.images[0]}`} // Assuming `images` is an array and you want the first image
                                 alt={article.title} // Always provide an alt attribute for accessibility
                             />
                         </div>
                         <div className="whats-right-cap">
-                            <h4><a href="latest_news.html">{article.title}</a></h4>
+                            <h4><a href={article._id}>{article.title}</a></h4>
                             <p>{article.date}</p>
                         </div>
                     </div>
@@ -238,7 +238,7 @@ const HomePage = () => {
         {/* Most recent (last in the list) */}
         {articleList.slice(-1).map(article => (
             <div key={article.id} className="most-recent-img">
-                <img src={`http://localhost:5000/images/${article.images[0]}`}  />
+                <img src={`https://web-enterprise-group2-backend-test.onrender.com/images/${article.images[0]}`}  />
                 <div className="most-recent-cap">
                     <span className="bgbeg">MOST RECENT</span>
                     <h4><a href={article._id}>{article.title}</a></h4>
@@ -251,7 +251,7 @@ const HomePage = () => {
     {articleList.slice(-3, -1).map(article => (
         <div key={article.id} className="most-recent-single">
             <div className="most-recent-images">
-            <img src={`http://localhost:5000/images/${article.images[0]}`}  width='85px'/>
+            <img src={`https://web-enterprise-group2-backend-test.onrender.com/images/${article.images[0]}`}  width='85px'/>
             </div>
             <div className="most-recent-capt">
                 <h4><a href={article._id}>{article.title}</a></h4>
@@ -288,7 +288,7 @@ const HomePage = () => {
                                         {topFiveArticles.map(article => (
                                             <div class="weekly2-single">
                                                 <div class="weekly2-img">
-                                                <img style={{ height: '300px' }} src={`http://localhost:5000/images/${article.images[0]}`} alt="" />
+                                                <img style={{ height: '300px' }} src={`https://web-enterprise-group2-backend-test.onrender.com/images/${article.images[0]}`} alt="" />
                                                 </div>
                                                 <div class="weekly2-caption">
                                                     <h4><a href={article._id}>{article.title}</a></h4>

@@ -22,7 +22,7 @@ const HomePage = () => {
 
     const fetchData = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/articles/getSelectedArticles');
+            const response = await axios.get('https://web-enterprise-group2-backend-test.onrender.com/articles/getSelectedArticles');
             setArticleList(response.data);
             allArticles = response.data
             // console.log(allArticles)
@@ -122,14 +122,14 @@ const HomePage = () => {
                                         <div className="whats-news-single mb-40">
                                             <div className="whates-img">
                                                 <img
-                                                    src={`http://localhost:5000/images/${article.images[0]}`}
+                                                    src={`https://web-enterprise-group2-backend-test.onrender.com/images/${article.images[0]}`}
                                                     alt={article.title}
                                                 />
                                             </div>
                                             <div className="whates-caption whates-caption2">
                                                 <h4><a href={article._id}>{article.title}</a></h4>
                                                 <span>by {article.name} - {article.date}</span>
-                                                <p>{article.content}</p>
+                                                {/* <p>{article.content}</p> */}
                                             </div>
                                         </div>
                                     </div>

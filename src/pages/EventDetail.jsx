@@ -62,7 +62,7 @@ const EventDetail = () => {
                     <li><a href="#"><i className="fa fa-user"></i> {event.status}</a></li>
                     {/* <li><a href="#"><i className="fa fa-comments"></i>{event.comments.length}</a></li> */}
                   </ul>
-                  <img src="https://www.greenwichsu.co.uk/pageassets/aboutus/locations/uni.jpg" alt="" />
+                  <img width="100%" src="https://www.greenwichsu.co.uk/pageassets/aboutus/locations/uni.jpg" alt="" />
                   <p>
                     {event.description}
                   </p>

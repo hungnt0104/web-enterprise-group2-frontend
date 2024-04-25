@@ -33,11 +33,11 @@ return(
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-white " href="../pages/tables.html">
+            <a class="nav-link text-white " href="/statistics">
               <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                 <i class="ti ti-write opacity-10"></i>
               </div>
-              <span class="nav-link-text ms-1">Manage Articles</span>
+              <span class="nav-link-text ms-1">Statistics</span>
             </a>
           </li>
           <li class="nav-item">
@@ -48,19 +48,11 @@ return(
               <span class="nav-link-text ms-1">Manage Semester</span>
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link text-white " href="../pages/billing.html">
-              <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                <i class="ti ti-comment-alt opacity-10"></i>
-              </div>
-              <span class="nav-link-text ms-1">Chat bot</span>
-            </a>
-          </li>
           <li class="nav-item mt-3">
             <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Account pages</h6>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-white " href=".profile">
+            <a class="nav-link text-white " href="/profile">
               <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                 <i class="ti ti-user opacity-10"></i>
               </div>

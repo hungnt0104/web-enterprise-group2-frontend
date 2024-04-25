@@ -24,6 +24,7 @@ const GetOneArticle = () => {
  
 	// const [author, setAuthor] = useState('');
     const author = window.localStorage.getItem('name')
+    const role = window.localStorage.getItem("role")
 	const location = useLocation();
     const articleId = location.pathname.split('/')[1];
 
@@ -58,7 +59,6 @@ const GetOneArticle = () => {
         e.preventDefault();
         
         try {
-          // console.log(article)
             const event = await axios.get(`/admin/getEvent/${article.eventId}`)
             const finalDeadline = event.data.closureDates.finalClosureDate
             
@@ -95,12 +95,18 @@ const GetOneArticle = () => {
 
     const handleDownloadAsZip = async () => {
         try {
+          
+          if (role !== "Manager"){
+            window.alert("You have to be manager!")
+            return
+          }
+
             const zip = new JSZip();
             const promises = [];
 
             // Add images to zip
             article.images.forEach((image, index) => {
-                const imageUrl = `http://localhost:5000/images/${image}`;
+                const imageUrl = `https://web-enterprise-group2-backend-test.onrender.com/images/${image}`;
                 promises.push(
                     axios.get(imageUrl, { responseType: 'blob' })
                         .then(response => {
@@ -162,7 +168,7 @@ const GetOneArticle = () => {
                     {article.content}
                   </p>
                   {article.images.map((image, index) => (
-                                    <img key={index} src={`http://localhost:5000/images/${image}`} alt={`Image ${index}`} style={{ width: '100%', height: 'auto', marginBottom: '10px' }} />
+                                    <img key={index} src={`https://web-enterprise-group2-backend-test.onrender.com/images/${image}`} alt={`Image ${index}`} style={{ width: '100%', height: 'auto', marginBottom: '10px' }} />
                                 ))}
                 </div>
               </div>
@@ -256,13 +262,17 @@ const GetOneArticle = () => {
                 <button  onClick={handleDownloadAsZip} type="submit" className="button button-contactForm btn_1 boxed-btn">Download ZIP</button>
     
                   &nbsp;&nbsp;&nbsp;
-                  {/* <button onClick={handleUpdateArticle} className="button button-contactForm btn_1 boxed-btn">Update Article</button>
-    &nbsp;&nbsp;&nbsp; */}
-                  {!article.isSelected ? (
+                 
+                  {/* {!article.isSelected ? (
                     <button onClick={handleSelect} type="submit" className="button button-contactForm btn_1 boxed-btn">Approve</button>
                   ) : (
                     <button onClick={handleDisSelect} type="submit" className="button button-contactForm btn_1 boxed-btn">Disapprove</button>
-                  )}
+                  )} */}
+                  {role === "Coordinator" && !article.isSelected ? (
+  <button onClick={handleSelect} type="submit" className="button button-contactForm btn_1 boxed-btn">Approve</button>
+) : role === "Coordinator" && (
+  <button onClick={handleDisSelect} type="submit" className="button button-contactForm btn_1 boxed-btn">Disapprove</button>
+)}
                   
               </div>
             </div>
@@ -285,10 +295,10 @@ const GetOneArticle = () => {
                 <h4 className="widget_title">Attachment</h4>
                 <ul className=" cat-list">
                       {article.pdfs.map((pdf, index) => (
-                                    <li key={index}><a href={`http://localhost:5000/pdfs/${pdf}`} target="_blank" rel="noopener noreferrer"><p>PDF {index + 1}</p></a></li>
+                                    <li key={index}><a href={`https://web-enterprise-group2-backend-test.onrender.com/pdfs/${pdf}`} target="_blank" rel="noopener noreferrer"><p>PDF {index + 1}</p></a></li>
                                 ))}
                       {article.docs.map((doc, index) => (
-                                    <li key={index}><a href={`http://localhost:5000/docs/${doc}`} target="_blank" rel="noopener noreferrer"><p>Doc {index + 1}</p></a></li>
+                                    <li key={index}><a href={`https://web-enterprise-group2-backend-test.onrender.com/docs/${doc}`} target="_blank" rel="noopener noreferrer"><p>Doc {index + 1}</p></a></li>
                                 ))}
                 </ul>
               </aside>
