@@ -54,7 +54,7 @@ function App() {
           <Route path="/home" element={<HomePage />} />
           <Route
             path="/menu"
-            element={isLoggedIn == "Coordinator" ? <GetArticle /> : <Login />}
+            element={role == "Coordinator" ? <GetArticle /> : <Forbidden />}
           />
           {/* <Route
             path="/home"
@@ -189,7 +189,7 @@ function Forbidden() {
       alignItems: 'center',
       height: '100vh', /* Set the height of the container to full viewport height */
     }}>
-      <h1>Forbidden: You have to be admin to use this function.</h1>
+      <h1>Forbidden: You don't have permission to use this page</h1>
     </div>
   );
 }
