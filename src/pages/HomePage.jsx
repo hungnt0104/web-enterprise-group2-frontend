@@ -33,7 +33,7 @@ const HomePage = () => {
             setArticleList(response.data);
             allArticles = response.data
             // console.log(allArticles)
-            title = allArticles[0].title
+            // title = allArticles[0].title
             // console.log(title)
             // console.log(response.data)
             

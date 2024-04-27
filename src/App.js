@@ -56,19 +56,10 @@ function App() {
             path="/menu"
             element={role == "Coordinator" ? <GetArticle /> : <Forbidden />}
           />
-          {/* <Route
-            path="/home"
-            element={isLoggedIn == "true" ? <HomePage /> : <Login />}
-          /> */}
           <Route
             path="/events"
             element={isLoggedIn == "true" ? <GetEvent /> : <Login />}
           />
-          
-          {/* <Route
-            path="/:id"
-            element={isLoggedIn == "true" ? <EventDetail /> : <Login />}
-          /> */}
           <Route
             path="/allArticles"
             element={isLoggedIn == "true" ? <AllArticle /> : <Login />}
@@ -81,12 +72,6 @@ function App() {
             path="/profile"
             element={isLoggedIn == "true" ? <Profile /> : <Login />}
           />
-          {/* <Route
-            path="/:id"
-            element={isLoggedIn == "true" ? <GetOneArticle /> : <Login />}
-          /> */}
-          
-          
           <Route path="/login" element={<Login />} />
           <Route 
             path="/signup" 

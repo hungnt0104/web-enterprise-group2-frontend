@@ -37,8 +37,8 @@ export default function Profile() {
                     <div class="buttons">
                         
                         <button onClick={logOut} class="btn px-4">Logout</button>
-                        <Link to="/menu">
-                        <button class="btn px-4 ms-3">Menu</button>
+                        <Link to="/">
+                        <button class="btn px-4 ms-3">Home</button>
                         </Link>
                     </div>
                     

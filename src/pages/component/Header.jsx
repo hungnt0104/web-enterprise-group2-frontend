@@ -143,7 +143,7 @@ includeJS('../../assets/js/vendor/modernizr-3.5.0.min.js');
                         <li><a href="/home">Home</a></li>
                         <li><a href="/statistics">Admin Dashboard</a></li>
                         <li><a href="/events">Events</a></li>
-                        {/* <li><a href="latest_news.html">Latest News</a></li> */}
+                        <li><a href="/menu">Coordinator Page</a></li>
                         <li><a href="#">Interaction</a>
                           <ul className="submenu">
                             <li><a href="/myArticle">My Articles</a></li>

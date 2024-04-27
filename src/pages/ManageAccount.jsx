@@ -53,14 +53,12 @@ const getFetchData = async()=>{
   console.log(data)
   if(data.data.success){
     setDataList(data.data.data)
-    // alert(data.data.message)
   }
 }
 
 useEffect(()=>{
   getFetchData()
 }, [])
-
 //delete
 const handleDelete = async(id)=>{
   const data = await axios.delete("/admin/deleteAccount/"+id)
@@ -72,7 +70,6 @@ const handleDelete = async(id)=>{
     window.location.reload();
   }
 }
-
 //update
 const handleUpdate = async(e, id)=>{
   e.preventDefault()

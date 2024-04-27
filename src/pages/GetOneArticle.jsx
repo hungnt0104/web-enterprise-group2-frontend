@@ -95,15 +95,12 @@ const GetOneArticle = () => {
 
     const handleDownloadAsZip = async () => {
         try {
-          
           if (role !== "Manager"){
             window.alert("You have to be manager!")
             return
           }
-
             const zip = new JSZip();
             const promises = [];
-
             // Add images to zip
             article.images.forEach((image, index) => {
                 const imageUrl = `https://web-enterprise-group2-backend-test.onrender.com/images/${image}`;
@@ -114,22 +111,17 @@ const GetOneArticle = () => {
                         })
                 );
             });
-
             // Add PDFs to zip
             article.pdfs.forEach((pdf, index) => {
                 zip.file(`pdf_${index + 1}.pdf`, pdf);
             });
-
             // Add docs to zip
             article.docs.forEach((doc, index) => {
                 zip.file(`doc_${index + 1}.doc`, doc);
             });
-
             await Promise.all(promises);
-
             // Generate zip file
             const zipBlob = await zip.generateAsync({ type: 'blob' });
-
             // Save zip file
             saveAs(zipBlob, `${article.title}_files.zip`);
         } catch (error) {

@@ -224,6 +224,9 @@ return(
       }
               <div class="row">
                 <div class="col-12">
+                <Link to="/createEvent">
+         <button className='btn' >Add Semester</button> &nbsp;
+       </Link>
                   <div class="card my-4">            
                     <div class="card-body px-0 pb-2 pt-0">
                       <div class="table-responsive p-0">

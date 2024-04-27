@@ -49,6 +49,7 @@ const Article = () => {
         // Check maximum file upload limits
         if (imageFiles.length > 3 || pdfFiles.length > 5 || docFiles.length > 2) {
             setError("Maximum upload limits exceeded. Please upload no more than 3 images, 5 PDFs, and 2 documents.");
+            window.alert("Maximum upload limits exceeded. Please upload no more than 3 images, 5 PDFs, and 2 documents.")
             return;
         }
 
