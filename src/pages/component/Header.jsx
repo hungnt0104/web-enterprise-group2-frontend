@@ -141,9 +141,7 @@ includeJS('../../assets/js/vendor/modernizr-3.5.0.min.js');
                     <nav>
                       <ul id="navigation">
                         <li><a href="/home">Home</a></li>
-                        <li><a href="/statistics">Admin Dashboard</a></li>
                         <li><a href="/events">Events</a></li>
-                        <li><a href="/menu">Coordinator Page</a></li>
                         <li><a href="#">Interaction</a>
                           <ul className="submenu">
                             <li><a href="/myArticle">My Articles</a></li>
@@ -151,6 +149,10 @@ includeJS('../../assets/js/vendor/modernizr-3.5.0.min.js');
                           </ul>
                         </li>
                         <li><a href="/allArticles">All Articles</a></li>
+                        <li><a href="/statistics">Admin</a></li>
+                        
+                        <li><a href="/menu">Coordinator</a></li>
+                        
                       </ul>
                     </nav>
                   </div>
