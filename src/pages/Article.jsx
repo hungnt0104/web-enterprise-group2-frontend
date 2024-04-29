@@ -239,6 +239,7 @@ const Article = () => {
     const email = window.localStorage.getItem('email');
     const location = useLocation();
     const eventId = location.pathname.split('/')[2];
+    const [showModal, setShowModal] = useState(false);
     const [currentEvent, setCurrentEvent] = useState("");
     const [show, setShow] = useState(false);
 
@@ -289,7 +290,8 @@ const Article = () => {
             const response = await axios.post('/articles/createArticle', formData, {
                 headers: {"Content-Type": "multipart/form-data"},
             });
-            window.alert("You've created article successfully");
+            // window.alert("You've created article successfully")
+            setShowModal(true);
             setUploadStatus(response.data.message);
             setTitle("");
             setContent("");
@@ -303,6 +305,10 @@ const Article = () => {
             setUploadStatus("Error uploading files");
         }
     };
+
+    const handleCloseModal = () => {
+      setShowModal(false);
+  };
 
     const handleImageChange = (e) => {
         const imageList = Array.from(e.target.files);

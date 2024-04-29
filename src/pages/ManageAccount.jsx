@@ -270,10 +270,13 @@ import SidebarAdmin from './component/SidebarAdmin';
 import NavbarAdmin from './component/NavbarAdmin';
 import SubNavbarAdmin from './component/SubNavbarAdmin';
 import { Link } from 'react-router-dom';
+import { Modal, Button } from 'react-bootstrap';
 
 const ManageAccount = () => {
   const [addSection, setAddSection] = useState(false);
   const [editSection, setEditSection] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -318,7 +321,8 @@ const ManageAccount = () => {
       const data = await axios.delete("/admin/deleteAccount/" + id);
       if (data.data.success) {
         getFetchData();
-        alert(data.data.message);
+        // alert(data.data.message);
+        setShowModal(false);
         window.location.reload();
       }
     } catch (error) {
@@ -449,9 +453,19 @@ const ManageAccount = () => {
                                 <a href="#" class="text-secondary font-weight-bold text-xs pl-1" data-toggle="tooltip" data-original-title="Edit user" onClick={() => handleEdit(el)}>
                                   Edit
                                 </a>
-                                <a href="#" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user" onClick={() => handleDelete(el._id)}>
-                                  | Delete
-                                </a>
+                                <a href="#"class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user"  onClick={() => setShowModal(true)}>
+                                | Delete
+                              </a>
+                              <Modal show={showModal} onHide={() => setShowModal(false)}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Confirm Delete</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>Are you sure you want to delete?</Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={() => setShowModal(false)}>Cancel</Button>
+                    <Button variant="danger" onClick={() => handleDelete(el._id)}>Delete</Button>
+                </Modal.Footer>
+            </Modal>
                               </td>
                             </tr>
                           ))}

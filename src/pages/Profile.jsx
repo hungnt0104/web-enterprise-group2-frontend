@@ -61,6 +61,8 @@
 
 import React, { useState } from "react";
 import { Link } from 'react-router-dom';
+import Header from "./component/Header";
+import Footer from "./component/Footer";
 
 export default function Profile() {
     const [userData, setUserData] = useState(null);
@@ -74,28 +76,40 @@ export default function Profile() {
         window.location.href = "/login";
     };
 
-    return (
-        <div className="container mt-5">
-            <div className="row d-flex justify-content-center">
-                <div className="col-md-7">
-                    <div className="card p-3 py-4">
-                        <div className="text-center">
-                            <img src="https://www.svgrepo.com/show/452030/avatar-default.svg" width="100" className="rounded-circle" alt="Profile Avatar" />
-                        </div>
-                        <div className="text-center mt-3">
-                            <span className="bg-secondary p-1 px-4 rounded text-white">{role}</span>
-                            <h5 className="mt-2 mb-0">{name}</h5>
-                            <span>{email}</span>
-                            <div className="buttons">
-                                <button onClick={logOut} className="btn px-4">Logout</button>
-                                <Link to="/">
-                                    <button className="btn px-4 ms-3">Home</button>
-                                </Link>
-                            </div>
-                        </div>
+  return (
+    <div>
+    <Header/>
+<div class="container mt-5">
+    
+    <div class="row d-flex justify-content-center">
+        
+        <div class="col-md-7">
+            
+            <div class="card p-3 py-4">
+                
+                <div class="text-center">
+                    <img src="https://www.svgrepo.com/show/452030/avatar-default.svg" width="100" class="rounded-circle"/>
+                </div>
+                
+                <div class="text-center mt-3">
+                    <span class="bg-secondary p-1 px-4 rounded text-white">{role}</span>
+                    <h5 class="mt-2 mb-0">{name}</h5>
+                    <span>{email}</span>
+                    <div class="buttons">
+                        
+                        <button onClick={logOut} class="btn px-4">Logout</button>
+                        <Link to="/">
+                        <button class="btn px-4 ms-3">Home</button>
+                        </Link>
                     </div>
                 </div>
             </div>
         </div>
-    );
+        
+    </div>
+    
+</div>
+
+</div>
+  );
 }

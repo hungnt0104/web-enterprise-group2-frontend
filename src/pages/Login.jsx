@@ -117,7 +117,15 @@ export default function Login() {
         window.localStorage.setItem('email', email);
         window.localStorage.setItem('name', name);
         window.localStorage.setItem('department', department);
-        window.location.href = '/';
+        if (role === 'Admin'){
+          window.location.href = '/statistics';
+        }
+        else if (role === 'Coordinator'){
+          window.location.href = '/menu';
+        }
+        else{
+          window.location.href = '/';
+        }
       }
     } catch (error) {
       alert('Wrong email or password');

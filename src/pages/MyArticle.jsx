@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable jsx-a11y/anchor-is-valid */
 // import React from 'react'
 // // import "../App.css"
 // import { useState } from 'react';
@@ -8,15 +6,16 @@
 // import axios from 'axios'
 // import SidebarAdmin from './component/SidebarAdmin';
 // import Header from './component/Header';
-// // import 'node_modules/bootstrap/dist/css/bootstrap.min.css'
-// // import '../ProductStyle.css'
+import { Modal, Button } from 'react-bootstrap';
+// import 'node_modules/bootstrap/dist/css/bootstrap.min.css'
+// import '../ProductStyle.css'
 
 // // axios.defaults.baseURL = 'https://backend-test-ad5x.onrender.com/admin';
 // // axios.defaults.baseURL = 'http://localhost:5000/admin'
 
 // const MyArticle = () =>{
-//   //giup bat tat add section
-// //setAddSection la 1 function de update addSection, useState de set mac dinh addSection la false
+  //giup bat tat add section
+//setAddSection la 1 function de update addSection, useState de set mac dinh addSection la false
 // const[addSection, setAddSection] = useState(false)
 // //bat tat update section
 // const [editSection, setEditSection] = useState(false)
@@ -27,7 +26,7 @@
 // const [docFiles, setDocFiles] = useState([]);
 // const [uploadStatus, setUploadStatus] = useState("");
 // const [error, setError] = useState("");
-
+// const [showModal, setShowModal] = useState(false);
 // const email = window.localStorage.getItem("email")
 
 // //giup lay du lieu trong form
@@ -55,6 +54,56 @@
 // const handleOnChange = (e)=>{ //e: event triggered. Trong truong hop nay la khi minh update. khi minh gan no vao onChange, React tu hieu e la 1 event
 //   const {value, name} = e.target //target la cac input, value va name la value va name cua cac input
 //   setFormData((previous)=>{ //previous: previous state trong form
+//     return{
+//       ...previous,//neu k co previous thi data se k lay dc het ma chi lay dc cai state ngay trc do
+//       [name] : value //update value trong form data
+//     }
+//   })
+// }
+
+// //fetch data from db, display all data
+// const getFetchData = async()=>{
+//   const data = await axios.get(`/articles/getMyArticle/${email}`)
+//   // console.log(data)
+//   if(data.status === 200){
+//     setDataList(data.data)
+//     // alert(data.data.message)
+//   }
+// }
+
+// useEffect(()=>{
+//   getFetchData()
+// }, [])
+
+// //delete
+// const handleDelete = async(id)=>{
+//   const data = await axios.delete("/articles/deleteArticle/"+id)
+// //   console.log(data)
+//   if (data.status === 200)
+//   {
+//     setShowModal(false);
+//     getFetchData()
+//     // alert('Delete Article Successfully')
+//   }
+// }
+
+//update
+// const handleUpdate = async(e, id)=>{
+//   e.preventDefault()
+
+//   const data = await axios.put("/articles/updateArticle/"+id, formDataEdit)
+//   // console.log(data)
+//   if (data.statusText == "OK")
+//   {
+//     getFetchData()
+//     alert("Updated successfully")
+//     setEditSection(false)
+//   }
+// }
+
+// const handleEditOnChange = async(e)=>{
+//   const {value, name} = e.target
+//   setFormDataEdit((previous)=>{
 //     return{
 //       ...previous,//neu k co previous thi data se k lay dc het ma chi lay dc cai state ngay trc do
 //       [name] : value //update value trong form data
@@ -522,30 +571,50 @@ const MyArticle = () => {
                                       alt=""
                                     />
                                   </div>
-                                </div>
-                              </td>
-                              <td className="align-middle">
-                                <a href={el._id} className="text-secondary font-weight-bold text-xs pl-3" data-toggle="tooltip" data-original-title="Edit user" onClick={() => handleEdit(el)}>
-                                  Detail
-                                </a>
-                                <a href="#" className="text-secondary font-weight-bold text-xs pl-3" data-toggle="tooltip" data-original-title="Edit user" onClick={() => handleEdit(el)}>
-                                  | Edit
-                                </a>
-                                <a href="#" className="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user" onClick={() => handleDelete(el._id)}>
-                                  | Delete
-                                </a>
-                              </td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
+                                  </div>
+                                </td>
+                                {/* <td>
+                                  <p class="text-xs font-weight-bold mb-0">{el.status}</p>
+                                  
+                                </td> */}
+                                {/* <td>
+                                <p class="text-xs font-weight-bold mb-0 pl-4">{el.startDate}</p>
+                                </td>
+                                <td><p class="text-xs font-weight-bold mb-0 ">{el.closureDates.firstDeadline}</p></td>
+                                <td><p class="text-xs font-weight-bold mb-0 ">{el.closureDates.finalClosureDate}</p></td> */}
+                                <td class="align-middle">
+                                 <a href={el._id} class="text-secondary font-weight-bold text-xs pl-3" data-toggle="tooltip" data-original-title="Edit user"  onClick={() => handleEdit(el)}>
+                                    Detail
+                                  </a>
+                                  <a href="#" class="text-secondary font-weight-bold text-xs pl-3" data-toggle="tooltip" data-original-title="Edit user"  onClick={() => handleEdit(el)}>
+                                    | Edit
+                                  </a>
+                                  <a href="#"class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user"  onClick={() => setShowModal(true)}>
+                                | Delete
+                              </a>
+                              <Modal show={showModal} onHide={() => setShowModal(false)}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Confirm Delete</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>Are you sure you want to delete?</Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={() => setShowModal(false)}>Cancel</Button>
+                    <Button variant="danger" onClick={() => handleDelete(el._id)}>Delete</Button>
+                </Modal.Footer>
+            </Modal>
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        {/* </div> */}
       </main>
     </body>
   );

@@ -256,9 +256,7 @@ const Header = () => {
               <div className="row d-flex align-items-center">
                 <div className="col-xl-3 col-lg-3 col-md-3 d-none d-md-block">
                   <div className="logo">
-                    <a href="index.html">
-                      <img src="assets/img/logo/logo.png" alt="" />
-                    </a>
+                    <a href="/"><img src="assets/img/logo/logo.png" alt="" /></a>
                   </div>
                 </div>
                 <div className="col-xl-9 col-lg-9 col-md-9">
@@ -300,15 +298,11 @@ const Header = () => {
                             </li>
                           </ul>
                         </li>
-                        <li>
-                          <a href="/allArticles">All Articles</a>
-                        </li>
-                        <li>
-                          <a href="/statistics">Admin</a>
-                        </li>
-                        <li>
-                          <a href="/menu">Coordinator</a>
-                        </li>
+                        <li><a href="/allArticles">All Articles</a></li>
+                        <li><a href="/statistics">Admin</a></li>
+                        
+                        <li><a href="/menu">Coordinator</a></li>
+                        
                       </ul>
                     </nav>
                   </div>

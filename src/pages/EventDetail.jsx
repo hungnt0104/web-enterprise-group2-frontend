@@ -234,6 +234,22 @@ const EventDetail = () => {
     const location = useLocation();
     const eventId = location.pathname.split('/')[2];
 
+    const handleCreateArticle = () => {
+      const currentDate = new Date();
+      const firstDeadlineDate = new Date(event.closureDates.firstDeadline);
+      const eventStartDate = new Date(event.startDate);
+      console.log(firstDeadlineDate, eventStartDate)
+      // Check if the first deadline has passed
+      if (currentDate > firstDeadlineDate) {
+          alert('The event has closed.');
+      } else if (currentDate < eventStartDate) {
+          alert('The event has not started yet.');
+      } else {
+          // Navigate to /createArticle
+          window.location.href = '/createArticle';
+      }
+  };
+
     useEffect(() => {
         fetchData(id);
     }, [id]);

@@ -2,6 +2,7 @@
 import MessagesReceived from './component/Message';
 import SendMessage from './component/SendMessage';
 import SidebarChat from './component/SidebarChat';
+import Header from './component/Header';
 
 const Chat = ({ username, room, socket }) => {
   return (
