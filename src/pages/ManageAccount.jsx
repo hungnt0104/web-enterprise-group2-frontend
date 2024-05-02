@@ -318,12 +318,14 @@ const ManageAccount = () => {
 
   const handleDelete = async (id) => {
     try {
-      const data = await axios.delete("/admin/deleteAccount/" + id);
+      console.log(id)
+      const data = await axios.delete("/admin/deleteAccount/"+id);
+      console.log(data)
       if (data.data.success) {
         getFetchData();
-        // alert(data.data.message);
-        setShowModal(false);
-        window.location.reload();
+        alert(data.data.message);
+        // setShowModal(false);
+        // window.location.reload();
       }
     } catch (error) {
       console.error('Error deleting account:', error);
@@ -453,7 +455,7 @@ const ManageAccount = () => {
                                 <a href="#" class="text-secondary font-weight-bold text-xs pl-1" data-toggle="tooltip" data-original-title="Edit user" onClick={() => handleEdit(el)}>
                                   Edit
                                 </a>
-                                <a href="#"class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user"  onClick={() => setShowModal(true)}>
+                                <a href="#"class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user" onClick={() => handleDelete(el._id)}>
                                 | Delete
                               </a>
                               <Modal show={showModal} onHide={() => setShowModal(false)}>
@@ -463,7 +465,7 @@ const ManageAccount = () => {
                 <Modal.Body>Are you sure you want to delete?</Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={() => setShowModal(false)}>Cancel</Button>
-                    <Button variant="danger" onClick={() => handleDelete(el._id)}>Delete</Button>
+                    <Button variant="danger" onClick={() => handleDelete(el._id)}>{el.email}</Button>
                 </Modal.Footer>
             </Modal>
                               </td>

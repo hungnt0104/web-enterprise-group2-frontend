@@ -372,6 +372,7 @@ const MyArticle = () => {
   const [docFiles, setDocFiles] = useState([]);
   const [uploadStatus, setUploadStatus] = useState("");
   const [error, setError] = useState("");
+  const [showModal, setShowModal] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     description: "",
@@ -589,7 +590,7 @@ const MyArticle = () => {
                                   <a href="#" class="text-secondary font-weight-bold text-xs pl-3" data-toggle="tooltip" data-original-title="Edit user"  onClick={() => handleEdit(el)}>
                                     | Edit
                                   </a>
-                                  <a href="#"class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user"  onClick={() => setShowModal(true)}>
+                                  <a href="#"class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user" onClick={() => handleDelete(el._id)}>
                                 | Delete
                               </a>
                               <Modal show={showModal} onHide={() => setShowModal(false)}>
