@@ -508,6 +508,21 @@ const GetOneArticle = () => {
                                         )}
                                     </div>
                                 </div>
+                                <div className="col-lg-4">
+               <div className="blog_right_sidebar">
+              <aside className="single_sidebar_widget post_category_widget">
+               <h4 className="widget_title">Attachment</h4>
+                <ul className=" cat-list">
+                       {article.pdfs.map((pdf, index) => (
+                                    <li key={index}><a href={`https://web-enterprise-group2-backend-test.onrender.com/pdfs/${pdf}`} target="_blank" rel="noopener noreferrer"><p>PDF {index + 1}</p></a></li>
+                                ))}
+                      {article.docs.map((doc, index) => (
+                                    <li key={index}><a href={`https://web-enterprise-group2-backend-test.onrender.com/docs/${doc}`} target="_blank" rel="noopener noreferrer"><p>Doc {index + 1}</p></a></li>
+                                ))}
+                </ul>
+              </aside>
+              </div>
+            </div>
                             </div>
                         </div>
                     </section>

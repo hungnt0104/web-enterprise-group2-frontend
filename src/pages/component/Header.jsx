@@ -298,10 +298,18 @@ const Header = () => {
                             </li>
                           </ul>
                         </li>
-                        <li><a href="/allArticles">All Articles</a></li>
-                        <li><a href="/statistics">Admin</a></li>
+                        <li>
+                          <a href="#">Management</a>
+                          <ul className="submenu">
+                          <li><a href="/statistics">Admin</a></li>
                         
-                        <li><a href="/menu">Coordinator</a></li>
+                          <li><a href="/menu">Coordinator</a></li>
+                          </ul>
+                        </li>
+                        <li><a href="/allArticles">All Articles</a></li>
+                        {/* <li><a href="/statistics">Admin</a></li>
+                        
+                        <li><a href="/menu">Coordinator</a></li> */}
                         
                       </ul>
                     </nav>
