@@ -262,7 +262,7 @@ function App() {
           <Route path="/menu" element={role === 'Coordinator' ? <GetArticle /> : <Forbidden />} />
           <Route path="/events" element={isLoggedIn === 'true' ? <GetEvent /> : <Login />} />
           <Route path="/allArticles" element={isLoggedIn === 'true' ? <AllArticle /> : <Login />} />
-          <Route path="/myArticle" element={isLoggedIn === 'true' ? <MyArticle /> : <Login />} />
+          <Route path="/myArticle" element={role === 'Student' ? <MyArticle /> : <Forbidden />} />
           <Route path="/profile" element={isLoggedIn === 'true' ? <Profile /> : <Login />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={role === 'Admin' ? <SignUp /> : <Forbidden />} />
