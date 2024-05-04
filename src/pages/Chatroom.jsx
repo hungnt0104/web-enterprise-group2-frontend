@@ -138,9 +138,11 @@ const Chatroom = ({ socket }) => {
                     <div style={{ color: 'white' }}>
                         Department:<strong> {department}</strong>
                     </div>
-                    
-            
+
                     <button className="btn btn-primary" style={{ backgroundColor: 'black', color: 'white' }} onClick={joinRoom}>Join Room</button>
+                    <button className="btn btn-secondary" style={{ backgroundColor: 'black', color: 'white' }} onClick={() => {window.location.href = '/home'}}>Cancel</button>
+              
+                
                 </div>
             </div>
             </div>
