@@ -19,6 +19,7 @@ const Sidebar = ({ handleSearch, sortByComments, sortByDate, sortByName, removeS
                         <div className="input-group mb-3">
                         <input
                             type="text"
+                        
                             className="form-control"
                             placeholder='Search Keyword'
                             onFocus={(e) => e.target.placeholder = ''}

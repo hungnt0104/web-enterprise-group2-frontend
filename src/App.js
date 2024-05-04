@@ -271,7 +271,7 @@ function App() {
           <Route path="/manageEvent" element={role === 'Admin' ? <ManageEvent /> : <Forbidden />} />
           <Route path="/statistics" element={role === 'Admin' ? <Statistics /> : <Forbidden />} />
           <Route path="/articleDetail/:id/comment" element={isLoggedIn === 'true' ? <Comment /> : <Login />} />
-          <Route path="/createArticle" element={isLoggedIn === 'true' ? <CreateArticle /> : <Login />} />
+          <Route path="/createArticle" element={role === 'Student' ? <CreateArticle /> :<Forbidden />} />
           <Route path="/chatroom" element={<Chatroom socket={socket} />} />
           <Route path="/message" element={<Chat socket={socket} />} />
           <Route path="/:id" element={<DataResolver />} />
